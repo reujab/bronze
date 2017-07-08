@@ -14,3 +14,9 @@ func main() {
 	}
 	app.Run(os.Args)
 }
+
+func check(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
