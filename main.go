@@ -15,6 +15,7 @@ func main() {
 	app := cli.NewApp()
 	app.Usage = "a cross-shell customizable powerline-like prompt with icons"
 	app.Commands = []cli.Command{
+		cmdInit,
 		cmdPrint,
 	}
 	app.Run(os.Args)
