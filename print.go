@@ -54,14 +54,12 @@ func cmdPrintAction(args []string) {
 		}
 		segments = append(segments, segment)
 
-		// TODO: make async
-		// FIXME: temporary code
 		switch command {
 		case "dir":
-			dir, err := os.Getwd()
-			check(err)
-			segments[len(segments)-1].value = dir
-			waitgroup.Done()
+			go func() {
+				dirSegment(segment)
+				waitgroup.Done()
+			}()
 		default:
 			fmt.Fprintf(os.Stderr, "bronze: Invalid command: %q.\n", command)
 			os.Exit(1)
