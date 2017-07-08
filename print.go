@@ -12,25 +12,6 @@ import (
 // powerline triangle
 const separator = "\ue0b0"
 
-var colors = map[string]string{
-	"fg-black":   "30",
-	"fg-red":     "31",
-	"fg-green":   "32",
-	"fg-yellow":  "33",
-	"fg-blue":    "34",
-	"fg-magenta": "35",
-	"fg-cyan":    "36",
-	"fg-white":   "37",
-	"bg-black":   "40",
-	"bg-red":     "41",
-	"bg-green":   "42",
-	"bg-yellow":  "43",
-	"bg-blue":    "44",
-	"bg-magenta": "45",
-	"bg-cyan":    "46",
-	"bg-white":   "47",
-}
-
 var cmdPrint = cli.Command{
 	Name:  "print",
 	Usage: "Prints the prompt with the specified syntax",
@@ -62,16 +43,6 @@ func cmdPrintAction(args []string) {
 		fields := strings.Split(arg, ":")
 		if len(fields) != 3 {
 			fmt.Fprintf(os.Stderr, "bronze: Invalid argument: %q. Exactly three fields expected.\n", arg)
-			os.Exit(1)
-		}
-		_, ok := colors["bg-"+fields[0]]
-		if !ok {
-			fmt.Fprintf(os.Stderr, "bronze: Invalid background: %q.\n", fields[0])
-			os.Exit(1)
-		}
-		_, ok = colors["fg-"+fields[1]]
-		if !ok {
-			fmt.Fprintf(os.Stderr, "bronze: Invalid foreground: %q.\n", fields[1])
 			os.Exit(1)
 		}
 		command := fields[2]
@@ -109,9 +80,9 @@ func cmdPrintAction(args []string) {
 		printSegment(segment.background, segment.foreground, " "+segment.value+" ")
 	}
 	// print final separator
-	printSegment("black", segments[len(segments)-1].background, separator)
+	printSegment("reset", segments[len(segments)-1].background, separator)
 }
 
 func printSegment(background, foreground, value string) {
-	fmt.Printf("\x1b[%sm\x1b[%sm%s", colors["bg-"+background], colors["fg-"+foreground], value)
+	fmt.Print(escapeBackground(background) + escapeForeground(foreground) + value)
 }

@@ -2,9 +2,12 @@ package main
 
 import (
 	"os"
+	"path/filepath"
 
 	"github.com/urfave/cli"
 )
+
+var shell = filepath.Base(os.Getenv("SHELL"))
 
 func main() {
 	app := cli.NewApp()
