@@ -28,13 +28,14 @@ var cmdPrint = cli.Command{
 }
 
 type segment struct {
+	visible    bool
 	background string
 	foreground string
 	value      string
 }
 
 func cmdPrintAction(args []string) {
-	var segments []segment
+	var segments []*segment
 	waitgroup := new(sync.WaitGroup)
 	waitgroup.Add(len(args))
 
@@ -47,10 +48,11 @@ func cmdPrintAction(args []string) {
 		}
 		command := fields[2]
 
-		segments = append(segments, segment{
+		segment := &segment{
 			background: fields[0],
 			foreground: fields[1],
-		})
+		}
+		segments = append(segments, segment)
 
 		// TODO: make async
 		// FIXME: temporary code
@@ -70,17 +72,25 @@ func cmdPrintAction(args []string) {
 	waitgroup.Wait()
 
 	// print the prompt
-	for i, segment := range segments {
-		// if this isn't the first segment, before printing the next segment, separate them
-		if i != 0 {
-			// use the last background as the current foreground
-			printSegment(segment.background, segments[i-1].background, separator)
+	first := true
+	lastBackground := "white"
+	for _, segment := range segments {
+		if !segment.visible {
+			continue
 		}
 
+		// if this isn't the first segment, before printing the next segment, separate them
+		if !first {
+			// use the last background as the current foreground
+			printSegment(segment.background, lastBackground, separator)
+		}
+		first = false
+
 		printSegment(segment.background, segment.foreground, " "+segment.value+" ")
+		lastBackground = segment.background
 	}
 	// print final separator
-	printSegment("reset", segments[len(segments)-1].background, separator)
+	printSegment("reset", lastBackground, separator)
 }
 
 func printSegment(background, foreground, value string) {
