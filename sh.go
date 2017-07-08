@@ -6,7 +6,7 @@ import (
 )
 
 var colors = map[string]string{
-	"bg-reset":   "0",
+	"bg-none":    "0",
 	"fg-black":   "30",
 	"fg-red":     "31",
 	"fg-green":   "32",
@@ -66,5 +66,16 @@ func escapeForeground(color string) string {
 			os.Exit(1)
 		}
 		return "\\[\x1b[" + code + "m\\]"
+	}
+}
+
+func resetColors() {
+	switch shell {
+	case "fish":
+		fmt.Printf("\x1b[0m")
+	case "zsh":
+		fmt.Print("%{%f%}")
+	default:
+		fmt.Printf("\\[\x1b[0m\\]")
 	}
 }

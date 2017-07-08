@@ -88,7 +88,8 @@ func cmdPrintAction(args []string) {
 		lastBackground = segment.background
 	}
 	// print final separator
-	printSegment("reset", lastBackground, separator)
+	printSegment("none", lastBackground, separator)
+	resetColors()
 }
 
 func printSegment(background, foreground, value string) {
