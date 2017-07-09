@@ -3,16 +3,35 @@ package main
 import (
 	"bufio"
 	"net/url"
+	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 	"sync"
 )
 
 // the git segment provides useful information about a git repository such as the domain of the "origin" remote (with an icon), the current branch, and whether the HEAD is dirty
 func gitSegment(segment *segment) {
+	// only run git commands if in a git repo
+	dir, err := os.Getwd()
+	check(err)
+	dir, err = filepath.EvalSymlinks(dir)
+	check(err)
+	var isRepo bool
+	for dir != "/" {
+		file, err := os.Stat(filepath.Join(dir, ".git"))
+		if err == nil && file.IsDir() {
+			isRepo = true
+			break
+		}
+		dir = filepath.Dir(dir)
+	}
+	if !isRepo {
+		return
+	}
+
 	waitgroup := new(sync.WaitGroup)
 	waitgroup.Add(5)
-	var isRepo bool
 	var domain string
 	var stashes int
 	var commitsAhead int
@@ -38,9 +57,7 @@ func gitSegment(segment *segment) {
 			}
 		}
 		check(scanner.Err())
-
-		// the directory is in a git repo if the `git status` command exited successfully
-		isRepo = cmd.Wait() == nil
+		check(cmd.Wait())
 	}()
 
 	go func() {
@@ -56,6 +73,8 @@ func gitSegment(segment *segment) {
 			stashes++
 		}
 		check(scanner.Err())
+
+		check(cmd.Wait())
 	}()
 
 	go func() {
@@ -71,15 +90,15 @@ func gitSegment(segment *segment) {
 			commitsAhead++
 		}
 		check(scanner.Err())
+
+		check(cmd.Wait())
 	}()
 
 	go func() {
 		defer waitgroup.Done()
 
 		stdout, err := exec.Command("git", "rev-parse", "--abbrev-ref", "HEAD").Output()
-		if err != nil {
-			return
-		}
+		check(err)
 		branch = strings.TrimSpace(string(stdout))
 
 		// if the head is detached, display the short hash
@@ -94,19 +113,13 @@ func gitSegment(segment *segment) {
 		defer waitgroup.Done()
 
 		stdout, err := exec.Command("git", "config", "--get", "remote.origin.url").Output()
-		if err != nil {
-			return
-		}
-
+		check(err)
 		uri, err := url.Parse(string(stdout))
 		check(err)
 		domain = uri.Hostname()
 	}()
 
 	waitgroup.Wait()
-	if !isRepo {
-		return
-	}
 
 	var segments []string
 	switch domain {
