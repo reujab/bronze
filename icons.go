@@ -3,6 +3,7 @@ package main
 const (
 	iconSeparator     = "\ue0b0" // Powerline
 	iconLightning     = "\ue00a" // Pomicons
+	iconLock          = "\uf023" // Font Awesome
 	iconExclam        = "\ue009" // Pomicons
 	iconHome          = "\uf015" // Font Awesome
 	iconGithub        = "\uf09b" // Font Awesome

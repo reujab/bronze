@@ -4,6 +4,8 @@ import (
 	"os"
 	"os/user"
 	"strconv"
+
+	"golang.org/x/sys/unix"
 )
 
 func statusSegment(segment *segment) {
@@ -11,6 +13,10 @@ func statusSegment(segment *segment) {
 	check(err)
 	if usr.Uid == "0" {
 		segment.value += iconLightning
+	}
+
+	if unix.Access(".", unix.W_OK) != nil {
+		segment.value += iconLock
 	}
 
 	status, err := strconv.Atoi(os.Getenv("STATUS"))
