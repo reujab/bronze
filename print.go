@@ -46,7 +46,6 @@ func cmdPrintAction(args []string) {
 			fmt.Fprintf(os.Stderr, "bronze: Invalid argument: %q. Exactly three fields expected.\n", arg)
 			os.Exit(1)
 		}
-		command := fields[2]
 
 		segment := &segment{
 			background: fields[0],
@@ -54,16 +53,10 @@ func cmdPrintAction(args []string) {
 		}
 		segments = append(segments, segment)
 
-		switch command {
-		case "dir":
-			go func() {
-				dirSegment(segment)
-				waitgroup.Done()
-			}()
-		default:
-			fmt.Fprintf(os.Stderr, "bronze: Invalid command: %q.\n", command)
-			os.Exit(1)
-		}
+		go func() {
+			handleCommand(fields[2], segment)
+			waitgroup.Done()
+		}()
 	}
 
 	// wait for all the async segments
