@@ -9,6 +9,8 @@ func handleCommand(command string, segment *segment) {
 	switch command {
 	case "status":
 		statusSegment(segment)
+	case "go":
+		goSegment(segment)
 	case "dir":
 		dirSegment(segment)
 	case "git":
