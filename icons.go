@@ -2,6 +2,7 @@ package main
 
 const (
 	iconSeparator     = "\ue0b0" // Powerline
+	iconApple         = "\uf179" // Font Awesome
 	iconArch          = "\uf300" // Font Linux
 	iconCentOS        = "\uf301" // Font Linux
 	iconDebian        = "\uf302" // Font Linux
