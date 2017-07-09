@@ -1,41 +1,41 @@
 package main
 
 import (
-	"fmt"
-	"net/url"
-	"os"
-	"path/filepath"
-
-	"github.com/go-ini/ini"
+	"bufio"
+	"os/exec"
 )
 
 // the git segment provides useful information about a git repository such as the domain of the "origin" remote (with an icon), the current branch, and whether the HEAD is dirty
 func gitSegment(segment *segment) {
-	dir, err := os.Getwd()
+	cmd := exec.Command("git", "status", "--porcelain")
+	stdout, err := cmd.StdoutPipe()
 	check(err)
-	dir, err = filepath.EvalSymlinks(dir)
-	check(err)
+	check(cmd.Start())
 
-	// go through every parent directory looking for a .git directory
-	for dir != "/" {
-		file, err := os.Stat(filepath.Join(dir, ".git"))
-		if err != nil || !file.IsDir() {
-			dir = filepath.Dir(dir)
-			continue
+	scanner := bufio.NewScanner(stdout)
+	var modified, indexModified bool
+	for scanner.Scan() {
+		line := scanner.Text()
+		if line[0] == 'M' || line[1] == 'M' {
+			modified = true
+		} else if line[0] == 'A' || line[1] == 'A' || line[0] == 'D' {
+			indexModified = true
 		}
+	}
+	check(scanner.Err())
 
-		// found a git repository
-		config, err := ini.Load(filepath.Join(dir, ".git/config"))
-		if err != nil {
-			return
+	if cmd.Wait() != nil {
+		return
+	}
+
+	segment.visible = true
+	if modified || indexModified {
+		segment.background = "yellow"
+		if modified {
+			segment.value += iconModified
 		}
-		origin, err := url.Parse(config.Section(`remote "origin"`).Key("url").Value())
-		if err != nil {
-			return
+		if indexModified {
+			segment.value += iconIndexModified
 		}
-
-		fmt.Println(origin.Hostname())
-
-		break
 	}
 }
