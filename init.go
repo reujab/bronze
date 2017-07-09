@@ -13,7 +13,7 @@ var cmdInit = cli.Command{
 	Action: func(ctx *cli.Context) error {
 		switch shell {
 		case "fish":
-			// TODO
+			fmt.Println(`function fish_prompt; bronze print $BRONZE; echo -n ' '; end`)
 		case "zsh":
 			fmt.Println(`unsetopt prompt_subst; precmd() { PROMPT="$(bronze print "${BRONZE[@]}") "; }`)
 		case "bash":
