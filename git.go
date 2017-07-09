@@ -11,9 +11,10 @@ import (
 // the git segment provides useful information about a git repository such as the domain of the "origin" remote (with an icon), the current branch, and whether the HEAD is dirty
 func gitSegment(segment *segment) {
 	waitgroup := new(sync.WaitGroup)
-	waitgroup.Add(2)
+	waitgroup.Add(3)
 	var isRepo bool
 	var domain string
+	var branch string
 	var modified, indexModified bool
 
 	go func() {
@@ -38,6 +39,23 @@ func gitSegment(segment *segment) {
 
 		// the directory is in a git repo if the `git status` command exited successfully
 		isRepo = cmd.Wait() == nil
+	}()
+
+	go func() {
+		defer waitgroup.Done()
+
+		stdout, err := exec.Command("git", "rev-parse", "--abbrev-ref", "HEAD").Output()
+		if err != nil {
+			return
+		}
+		branch = strings.TrimSpace(string(stdout))
+
+		// if the head is detached, display the short hash
+		if branch == "HEAD" {
+			stdout, err = exec.Command("git", "rev-parse", "--short", "HEAD").Output()
+			check(err)
+			branch = strings.TrimSpace(string(stdout))
+		}
 	}()
 
 	go func() {
@@ -69,6 +87,7 @@ func gitSegment(segment *segment) {
 	default:
 		segments = append(segments, iconGit)
 	}
+	segments = append(segments, branch)
 	if modified || indexModified {
 		segment.background = "yellow"
 
