@@ -26,7 +26,10 @@ precmd() {
 	PROMPT="$(STATUS=$? CMDTIME=$(($(date +%s%3N)-$BRONZE_START))ms bronze print "${BRONZE[@]}") "
 }`)
 		case "bash":
-			fmt.Println(`PS1='$(STATUS=$? bronze print "${BRONZE[@]}") '`)
+			fmt.Println(`PROMPT_COMMAND=bronze_prompt
+bronze_prompt() {
+	PS1="$(STATUS=$? bronze print "${BRONZE[@]}") "
+}`)
 		default:
 			fmt.Print(`echo "bronze: Unrecognized shell."`)
 		}

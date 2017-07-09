@@ -29,6 +29,13 @@ func escapeBackground(color string) string {
 	switch shell {
 	case "zsh":
 		return "%K{" + color + "}"
+	case "bash":
+		code, ok := colors["bg-"+color]
+		if !ok {
+			fmt.Fprintf(os.Stderr, "bronze: Invalid background color: %q.", color)
+			os.Exit(1)
+		}
+		return "\\[\x1b[" + code + "m\\]"
 	default:
 		code, ok := colors["bg-"+color]
 		if !ok {
@@ -43,6 +50,13 @@ func escapeForeground(color string) string {
 	switch shell {
 	case "zsh":
 		return "%F{" + color + "}"
+	case "bash":
+		code, ok := colors["fg-"+color]
+		if !ok {
+			fmt.Fprintf(os.Stderr, "bronze: Invalid foreground color: %q.", color)
+			os.Exit(1)
+		}
+		return "\\[\x1b[" + code + "m\\]"
 	default:
 		code, ok := colors["fg-"+color]
 		if !ok {
@@ -57,6 +71,8 @@ func resetColors() {
 	switch shell {
 	case "zsh":
 		fmt.Print("%{%f%}")
+	case "bash":
+		fmt.Printf("\\[\x1b[0m\\]")
 	default:
 		fmt.Printf("\x1b[0m")
 	}
