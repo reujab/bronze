@@ -7,6 +7,8 @@ import (
 
 func handleCommand(command string, segment *segment) {
 	switch command {
+	case "os":
+		osSegment(segment)
 	case "status":
 		statusSegment(segment)
 	case "go":

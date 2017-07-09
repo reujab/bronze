@@ -2,6 +2,14 @@ package main
 
 const (
 	iconSeparator     = "\ue0b0" // Powerline
+	iconArch          = "\uf300" // Font Linux
+	iconCentOS        = "\uf301" // Font Linux
+	iconDebian        = "\uf302" // Font Linux
+	iconFedora        = "\uf303" // Font Linux
+	iconMint          = "\uf304" // Font Linux
+	iconSUSE          = "\uf308" // Font Linux
+	iconUbuntu        = "\uf30c" // Font Linux
+	iconElementary    = "\uf311" // Font Linux
 	iconLightning     = "\ue00a" // Pomicons
 	iconLock          = "\uf023" // Font Awesome
 	iconExclam        = "\ue009" // Pomicons
