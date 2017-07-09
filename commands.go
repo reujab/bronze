@@ -17,6 +17,8 @@ func handleCommand(command string, segment *segment) {
 		nodeSegment(segment)
 	case "dir":
 		dirSegment(segment)
+	case "shortdir":
+		shortDirSegment(segment)
 	case "git":
 		gitSegment(segment)
 	case "cmdtime":
