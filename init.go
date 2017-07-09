@@ -23,7 +23,7 @@ preexec() {
 }
 
 precmd() {
-	PROMPT="$(STATUS=$? JOBS=$(jobs -p | wc -l) CMDTIME=$(($(date +%s%3N)-$BRONZE_START))ms bronze print "${BRONZE[@]}") "
+	PROMPT="$(env STATUS=$? JOBS=$#jobstates CMDTIME=$(($(date +%s%3N)-$BRONZE_START))ms bronze print "${BRONZE[@]}") "
 }`)
 		case "bash":
 			fmt.Println(`PROMPT_COMMAND=bronze_prompt
