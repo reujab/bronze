@@ -9,6 +9,8 @@ func handleCommand(command string, segment *segment) {
 	switch command {
 	case "dir":
 		dirSegment(segment)
+	case "git":
+		gitSegment(segment)
 	case "cmdtime":
 		cmdTimeSegment(segment)
 	default:
