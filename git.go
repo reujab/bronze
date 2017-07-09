@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"net/url"
 	"os/exec"
-	"strconv"
 	"strings"
 	"sync"
 )
@@ -120,15 +119,8 @@ func gitSegment(segment *segment) {
 	default:
 		segments = append(segments, iconGit)
 	}
-	if stashes > 5 {
-		segments = append(segments, iconStash+strconv.Itoa(stashes))
-	} else if stashes != 0 {
-		segments = append(segments, strings.Repeat(iconStash, stashes))
-	}
-	if commitsAhead > 5 {
-		segments = append(segments, iconAhead+strconv.Itoa(commitsAhead))
-	} else if commitsAhead != 0 {
-		segments = append(segments, strings.Repeat(iconAhead, commitsAhead))
+	if stashes != 0 || commitsAhead != 0 {
+		segments = append(segments, strings.Repeat(iconStash, stashes)+strings.Repeat(iconAhead, commitsAhead))
 	}
 	segments = append(segments, branch)
 	if modified || indexModified {
