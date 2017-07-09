@@ -17,7 +17,7 @@ var cmdInit = cli.Command{
 		case "zsh":
 			fmt.Println(`unsetopt prompt_subst; precmd() { PROMPT="$(bronze print "${BRONZE[@]}") "; }`)
 		case "bash":
-			// TODO
+			fmt.Println(`PS1='$(bronze print "${BRONZE[@]}") '`)
 		default:
 			fmt.Print(`echo "bronze: Unrecognized shell."`)
 		}
