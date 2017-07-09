@@ -9,9 +9,6 @@ import (
 	"github.com/urfave/cli"
 )
 
-// powerline triangle
-const separator = "\ue0b0"
-
 var cmdPrint = cli.Command{
 	Name:  "print",
 	Usage: "Prints the prompt with the specified syntax",
@@ -73,7 +70,7 @@ func cmdPrintAction(args []string) {
 		// if this isn't the first segment, before printing the next segment, separate them
 		if !first {
 			// use the last background as the current foreground
-			printSegment(segment.background, lastBackground, separator)
+			printSegment(segment.background, lastBackground, iconSeparator)
 		}
 		first = false
 
@@ -81,7 +78,7 @@ func cmdPrintAction(args []string) {
 		lastBackground = segment.background
 	}
 	// print final separator
-	printSegment("none", lastBackground, separator)
+	printSegment("none", lastBackground, iconSeparator)
 	resetColors()
 }
 
