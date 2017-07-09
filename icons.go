@@ -7,6 +7,7 @@ const (
 	iconGitlab        = "\uf296"     // Font Awesome
 	iconBitbucket     = "\uf171"     // Font Awesome
 	iconGit           = "\ue0a0"     // Powerline
+	iconStash         = "\uf01c"     // Font Awesome
 	iconModified      = "\u25cf"     // Unicode
 	iconIndexModified = "\u271a"     // Unicode
 )
