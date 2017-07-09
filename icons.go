@@ -5,6 +5,7 @@ const (
 	iconLightning     = "\ue00a" // Pomicons
 	iconLock          = "\uf023" // Font Awesome
 	iconExclam        = "\ue009" // Pomicons
+	iconGear          = "\ue615" // Seti UI
 	iconHome          = "\uf015" // Font Awesome
 	iconGithub        = "\uf09b" // Font Awesome
 	iconGitlab        = "\uf296" // Font Awesome

@@ -4,6 +4,7 @@ import (
 	"os"
 	"os/user"
 	"strconv"
+	"strings"
 
 	"golang.org/x/sys/unix"
 )
@@ -24,6 +25,10 @@ func statusSegment(segment *segment) {
 	if status != 0 {
 		segment.value += iconExclam
 	}
+
+	jobs, err := strconv.Atoi(os.Getenv("JOBS"))
+	check(err)
+	segment.value += strings.Repeat(iconGear, jobs)
 
 	segment.visible = segment.value != ""
 }
