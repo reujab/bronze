@@ -27,14 +27,6 @@ var colors = map[string]string{
 
 func escapeBackground(color string) string {
 	switch shell {
-	case "fish":
-		code, ok := colors["bg-"+color]
-		if !ok {
-			fmt.Fprintf(os.Stderr, "bronze: Invalid background color: %q.", color)
-			os.Exit(1)
-		}
-		// fish is smart enough to detect zero-width characters
-		return "\x1b[" + code + "m"
 	case "zsh":
 		return "%K{" + color + "}"
 	default:
@@ -43,20 +35,12 @@ func escapeBackground(color string) string {
 			fmt.Fprintf(os.Stderr, "bronze: Invalid background color: %q.", color)
 			os.Exit(1)
 		}
-		// the brackets tell bash the escape code is zero-width
-		return "\\[\x1b[" + code + "m\\]"
+		return "\x1b[" + code + "m"
 	}
 }
 
 func escapeForeground(color string) string {
 	switch shell {
-	case "fish":
-		code, ok := colors["fg-"+color]
-		if !ok {
-			fmt.Fprintf(os.Stderr, "bronze: Invalid foreground color: %q.", color)
-			os.Exit(1)
-		}
-		return "\x1b[" + code + "m"
 	case "zsh":
 		return "%F{" + color + "}"
 	default:
@@ -65,17 +49,15 @@ func escapeForeground(color string) string {
 			fmt.Fprintf(os.Stderr, "bronze: Invalid foreground color: %q.", color)
 			os.Exit(1)
 		}
-		return "\\[\x1b[" + code + "m\\]"
+		return "\x1b[" + code + "m"
 	}
 }
 
 func resetColors() {
 	switch shell {
-	case "fish":
-		fmt.Printf("\x1b[0m")
 	case "zsh":
 		fmt.Print("%{%f%}")
 	default:
-		fmt.Printf("\\[\x1b[0m\\]")
+		fmt.Printf("\x1b[0m")
 	}
 }
