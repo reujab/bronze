@@ -11,6 +11,8 @@ func handleCommand(command string, segment *segment) {
 		statusSegment(segment)
 	case "go":
 		goSegment(segment)
+	case "node":
+		nodeSegment(segment)
 	case "dir":
 		dirSegment(segment)
 	case "git":
