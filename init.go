@@ -13,7 +13,7 @@ var cmdInit = cli.Command{
 	Action: func(ctx *cli.Context) error {
 		switch shell {
 		case "fish":
-			fmt.Println(`function fish_prompt; env CMDTIME={$CMD_DURATION}ms bronze print $BRONZE; echo -n ' '; end`)
+			fmt.Println(`function fish_prompt; env STATUS=$status CMDTIME={$CMD_DURATION}ms bronze print $BRONZE; echo -n ' '; end`)
 		case "zsh":
 			fmt.Println(`BRONZE_START=$(date +%s%3N)
 unsetopt prompt_subst
@@ -23,10 +23,10 @@ preexec() {
 }
 
 precmd() {
-	PROMPT="$(CMDTIME=$(($(date +%s%3N)-$BRONZE_START))ms bronze print "${BRONZE[@]}") "
+	PROMPT="$(STATUS=$? CMDTIME=$(($(date +%s%3N)-$BRONZE_START))ms bronze print "${BRONZE[@]}") "
 }`)
 		case "bash":
-			fmt.Println(`PS1='$(bronze print "${BRONZE[@]}") '`)
+			fmt.Println(`PS1='$(STATUS=$? bronze print "${BRONZE[@]}") '`)
 		default:
 			fmt.Print(`echo "bronze: Unrecognized shell."`)
 		}

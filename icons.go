@@ -2,6 +2,8 @@ package main
 
 const (
 	iconSeparator     = "\ue0b0" // Powerline
+	iconLightning     = "\ue00a" // Pomicons
+	iconExclam        = "\ue009" // Pomicons
 	iconHome          = "\uf015" // Font Awesome
 	iconGithub        = "\uf09b" // Font Awesome
 	iconGitlab        = "\uf296" // Font Awesome
