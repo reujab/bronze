@@ -12,10 +12,11 @@ import (
 // the git segment provides useful information about a git repository such as the domain of the "origin" remote (with an icon), the current branch, and whether the HEAD is dirty
 func gitSegment(segment *segment) {
 	waitgroup := new(sync.WaitGroup)
-	waitgroup.Add(4)
+	waitgroup.Add(5)
 	var isRepo bool
 	var domain string
 	var stashes int
+	var commitsAhead int
 	var branch string
 	var modified, indexModified bool
 
@@ -54,6 +55,21 @@ func gitSegment(segment *segment) {
 		scanner := bufio.NewScanner(stdout)
 		for scanner.Scan() {
 			stashes++
+		}
+		check(scanner.Err())
+	}()
+
+	go func() {
+		defer waitgroup.Done()
+
+		cmd := exec.Command("git", "log", "--oneline", "@{upstream}..")
+		stdout, err := cmd.StdoutPipe()
+		check(err)
+		check(cmd.Start())
+
+		scanner := bufio.NewScanner(stdout)
+		for scanner.Scan() {
+			commitsAhead++
 		}
 		check(scanner.Err())
 	}()
@@ -106,6 +122,9 @@ func gitSegment(segment *segment) {
 	}
 	if stashes != 0 {
 		segments = append(segments, iconStash+strconv.Itoa(stashes))
+	}
+	if commitsAhead != 0 {
+		segments = append(segments, iconAhead+strconv.Itoa(commitsAhead))
 	}
 	segments = append(segments, branch)
 	if modified || indexModified {
