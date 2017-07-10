@@ -36,7 +36,7 @@ func gitSegment(segment *segment) {
 	var stashes int
 	var commitsAhead int
 	var branch string
-	var modified, indexModified bool
+	var dirty, modified, staged bool
 
 	go func() {
 		defer waitgroup.Done()
@@ -48,12 +48,15 @@ func gitSegment(segment *segment) {
 
 		scanner := bufio.NewScanner(stdout)
 		for scanner.Scan() {
-			line := scanner.Text()
+			dirty = true
+
 			// https://git-scm.com/docs/git-status
-			if line[0] == 'M' || line[1] == 'M' {
+			x := scanner.Text()[0]
+			y := scanner.Text()[1]
+			if x == ' ' && (y == 'M' || y == 'D') {
 				modified = true
-			} else if line[0] == 'A' || line[1] == 'A' || line[0] == 'D' {
-				indexModified = true
+			} else if x != '?' {
+				staged = true
 			}
 		}
 		check(scanner.Err())
@@ -91,14 +94,17 @@ func gitSegment(segment *segment) {
 		}
 		check(scanner.Err())
 
-		check(cmd.Wait())
+		cmd.Wait()
 	}()
 
 	go func() {
 		defer waitgroup.Done()
 
 		stdout, err := exec.Command("git", "rev-parse", "--abbrev-ref", "HEAD").Output()
-		check(err)
+		if err != nil {
+			// no commits yet
+			return
+		}
 		branch = strings.TrimSpace(string(stdout))
 
 		// if the head is detached, display the short hash
@@ -113,7 +119,10 @@ func gitSegment(segment *segment) {
 		defer waitgroup.Done()
 
 		stdout, err := exec.Command("git", "config", "--get", "remote.origin.url").Output()
-		check(err)
+		if err != nil {
+			// no configured remote
+			return
+		}
 		uri, err := url.Parse(string(stdout))
 		check(err)
 		domain = uri.Hostname()
@@ -135,18 +144,22 @@ func gitSegment(segment *segment) {
 	if stashes != 0 || commitsAhead != 0 {
 		segments = append(segments, strings.Repeat(iconStash, stashes)+strings.Repeat(iconAhead, commitsAhead))
 	}
-	segments = append(segments, branch)
-	if modified || indexModified {
+	if branch != "" {
+		segments = append(segments, branch)
+	}
+	if dirty {
 		segment.background = "yellow"
 
 		var icons string
 		if modified {
-			icons += iconModified
+			icons += iconCircle
 		}
-		if indexModified {
-			icons += iconIndexModified
+		if staged {
+			icons += iconPlus
 		}
-		segments = append(segments, icons)
+		if icons != "" {
+			segments = append(segments, icons)
+		}
 	}
 	segment.visible = true
 	segment.value = strings.Join(segments, " ")
