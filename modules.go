@@ -11,10 +11,6 @@ func handleModule(module string, segment *segment) {
 		osSegment(segment)
 	case "status":
 		statusSegment(segment)
-	case "go":
-		goSegment(segment)
-	case "node":
-		nodeSegment(segment)
 	case "dir":
 		dirSegment(segment)
 	case "shortdir":
