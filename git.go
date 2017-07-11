@@ -34,10 +34,15 @@ func gitSegment(segment *segment) {
 	})
 
 	var commitsAhead int
-
-	var branch string
 	head, err := repo.Head()
 	check(err)
+	upstream, err := head.Branch().Upstream()
+	if err == nil {
+		commitsAhead, _, err = repo.AheadBehind(head.Branch().Reference.Target(), upstream.Target())
+		check(err)
+	}
+
+	var branch string
 	branch, err = head.Branch().Name()
 	check(err)
 	head.Free()
