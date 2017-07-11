@@ -13,7 +13,7 @@ var cmdPrint = cli.Command{
 	Name:  "print",
 	Usage: "Prints the prompt with the specified syntax",
 	// TODO: improve description
-	Description: "Example: bronze print blue:black:dir",
+	Description: "Example: bronze print dir:blue:black",
 	Action: func(ctx *cli.Context) error {
 		if len(ctx.Args()) == 0 {
 			cli.ShowCommandHelpAndExit(ctx, "print", 1)
@@ -45,13 +45,13 @@ func cmdPrintAction(args []string) {
 		}
 
 		segment := &segment{
-			background: fields[0],
-			foreground: fields[1],
+			background: fields[1],
+			foreground: fields[2],
 		}
 		segments = append(segments, segment)
 
 		go func() {
-			handleCommand(fields[2], segment)
+			handleCommand(fields[0], segment)
 			waitgroup.Done()
 		}()
 	}
