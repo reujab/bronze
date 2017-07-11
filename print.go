@@ -51,7 +51,7 @@ func cmdPrintAction(args []string) {
 		segments = append(segments, segment)
 
 		go func() {
-			handleCommand(fields[0], segment)
+			handleModule(fields[0], segment)
 			waitgroup.Done()
 		}()
 	}

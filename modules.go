@@ -5,8 +5,8 @@ import (
 	"os"
 )
 
-func handleCommand(command string, segment *segment) {
-	switch command {
+func handleModule(module string, segment *segment) {
+	switch module {
 	case "os":
 		osSegment(segment)
 	case "status":
@@ -24,7 +24,7 @@ func handleCommand(command string, segment *segment) {
 	case "cmdtime":
 		cmdTimeSegment(segment)
 	default:
-		fmt.Fprintf(os.Stderr, "bronze: Invalid command: %q.\n", command)
+		fmt.Fprintf(os.Stderr, "bronze: Invalid module: %q.\n", module)
 		os.Exit(1)
 	}
 }
