@@ -33,12 +33,12 @@ func gitSegment(segment *segment) {
 		return nil
 	})
 
-	var commitsAhead int
+	var ahead, behind int
 	head, err := repo.Head()
 	check(err)
 	upstream, err := head.Branch().Upstream()
 	if err == nil {
-		commitsAhead, _, err = repo.AheadBehind(head.Branch().Reference.Target(), upstream.Target())
+		ahead, behind, err = repo.AheadBehind(head.Branch().Reference.Target(), upstream.Target())
 		check(err)
 	}
 
@@ -80,8 +80,8 @@ func gitSegment(segment *segment) {
 	default:
 		segments = append(segments, iconGit)
 	}
-	if stashes != 0 || commitsAhead != 0 {
-		segments = append(segments, strings.Repeat(iconStash, stashes)+strings.Repeat(iconAhead, commitsAhead))
+	if stashes != 0 || ahead != 0 || behind != 0 {
+		segments = append(segments, strings.Repeat(iconStash, stashes)+strings.Repeat(iconAhead, ahead)+strings.Repeat(iconBehind, behind))
 	}
 	if branch != "" {
 		segments = append(segments, branch)

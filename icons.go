@@ -22,6 +22,7 @@ const (
 	iconGit        = "\ue0a0" // Powerline
 	iconStash      = "\uf01c" // Font Awesome
 	iconAhead      = "\uf148" // Font Awesome
+	iconBehind     = "\uf149" // Font Awesome
 	iconCircle     = "\u25cf" // Unicode
 	iconPlus       = "\u271a" // Unicode
 )
