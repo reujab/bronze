@@ -33,7 +33,13 @@ func gitSegment(segment *segment) {
 	})
 
 	var commitsAhead int
+
 	var branch string
+	head, err := repo.Head()
+	check(err)
+	branch, err = head.Branch().Name()
+	check(err)
+	head.Free()
 
 	var dirty, modified, staged bool
 	status, err := repo.StatusList(&git.StatusOptions{
