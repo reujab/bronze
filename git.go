@@ -1,6 +1,7 @@
 package main
 
 import (
+	"net/url"
 	"os"
 	"strings"
 
@@ -17,6 +18,13 @@ func gitSegment(segment *segment) {
 	}
 
 	var domain string
+	remote, err := repo.Remotes.Lookup("origin")
+	if err == nil {
+		uri, err := url.Parse(remote.Url())
+		check(err)
+		domain = uri.Hostname()
+	}
+
 	var stashes int
 	var commitsAhead int
 	var branch string
