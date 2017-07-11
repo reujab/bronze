@@ -23,6 +23,7 @@ func gitSegment(segment *segment) {
 		uri, err := url.Parse(remote.Url())
 		check(err)
 		domain = uri.Hostname()
+		remote.Free()
 	}
 
 	var stashes int
