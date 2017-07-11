@@ -34,18 +34,20 @@ func gitSegment(segment *segment) {
 	})
 
 	var ahead, behind int
-	head, err := repo.Head()
-	check(err)
-	upstream, err := head.Branch().Upstream()
-	if err == nil {
-		ahead, behind, err = repo.AheadBehind(head.Branch().Reference.Target(), upstream.Target())
-		check(err)
-	}
-
 	var branch string
-	branch, err = head.Branch().Name()
-	check(err)
-	head.Free()
+	head, err := repo.Head()
+	if err == nil {
+		check(err)
+		upstream, err := head.Branch().Upstream()
+		if err == nil {
+			ahead, behind, err = repo.AheadBehind(head.Branch().Reference.Target(), upstream.Target())
+			check(err)
+		}
+
+		branch, err = head.Branch().Name()
+		check(err)
+		head.Free()
+	}
 
 	var dirty, modified, staged bool
 	status, err := repo.StatusList(&git.StatusOptions{
