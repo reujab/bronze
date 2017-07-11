@@ -16,6 +16,7 @@ func gitSegment(segment *segment) {
 	if err != nil {
 		return
 	}
+	defer repo.Free()
 
 	var domain string
 	remote, err := repo.Remotes.Lookup("origin")
