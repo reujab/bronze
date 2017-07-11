@@ -26,6 +26,11 @@ func gitSegment(segment *segment) {
 	}
 
 	var stashes int
+	repo.Stashes.Foreach(func(int, string, *git.Oid) error {
+		stashes++
+		return nil
+	})
+
 	var commitsAhead int
 	var branch string
 	var dirty, modified, staged bool
