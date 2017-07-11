@@ -34,7 +34,28 @@ func gitSegment(segment *segment) {
 
 	var commitsAhead int
 	var branch string
+
 	var dirty, modified, staged bool
+	status, err := repo.StatusList(&git.StatusOptions{
+		Flags: git.StatusOptIncludeUntracked,
+	})
+	check(err)
+	count, err := status.EntryCount()
+	check(err)
+	if count != 0 {
+		dirty = true
+	}
+	for i := 0; i < count; i++ {
+		entry, err := status.ByIndex(i)
+		check(err)
+		if entry.Status&git.StatusWtNew != 0 || entry.Status&git.StatusWtModified != 0 || entry.Status&git.StatusWtDeleted != 0 || entry.Status&git.StatusWtTypeChange != 0 || entry.Status&git.StatusWtRenamed != 0 {
+			modified = true
+		}
+		if entry.Status&git.StatusIndexNew != 0 || entry.Status&git.StatusIndexModified != 0 || entry.Status&git.StatusIndexDeleted != 0 || entry.Status&git.StatusIndexRenamed != 0 || entry.Status&git.StatusIndexTypeChange != 0 {
+			staged = true
+		}
+	}
+	status.Free()
 
 	var segments []string
 	switch domain {
