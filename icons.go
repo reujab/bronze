@@ -29,6 +29,7 @@ func init() {
 		initIcon("SUSE", "\uf308")       // Font Linux
 		initIcon("ubuntu", "\uf30c")     // Font Linux
 		initIcon("elementary", "\uf311") // Font Linux
+		initIcon("linux", "\uf17c")      // Font Awesome; linux
 		initIcon("root", "\ue00a")       // Pomicons; lightning
 		initIcon("readonly", "\uf023")   // Font Awesome; lock
 		initIcon("failed", "\ue009")     // Pomicons; exclamation
@@ -54,6 +55,7 @@ func init() {
 		initIcon("SUSE", "")
 		initIcon("ubuntu", "")
 		initIcon("elementary", "")
+		initIcon("linux", "\U0001f427")    // Emoji; penguin
 		initIcon("root", "\u26a1")         // Emoji; high voltage
 		initIcon("readonly", "\U0001f512") // Emoji; locked
 		initIcon("failed", "\u2757")       // Emoji; exclamation mark
@@ -78,6 +80,7 @@ func init() {
 		initIcon("SUSE", "")
 		initIcon("ubuntu", "")
 		initIcon("elementary", "")
+		initIcon("linux", "")
 		initIcon("root", "#")
 		initIcon("readonly", "@")
 		initIcon("failed", "!")

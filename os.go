@@ -31,5 +31,8 @@ func osSegment(segment *segment) {
 		case "elementary":
 			segment.value = icons["elementary"]
 		}
+		if segment.value == "" {
+			segment.value = icons["linux"]
+		}
 	}
 }
