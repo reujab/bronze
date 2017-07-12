@@ -1,39 +1,37 @@
 package main
 
 import (
-	"fmt"
-	"os"
 	"runtime"
 
 	"github.com/go-ini/ini"
 )
 
 func osSegment(segment *segment) {
-	if runtime.GOOS == "darwin" {
-		segment.value = iconApple
-	} else {
+	switch runtime.GOOS {
+	case "darwin":
+		segment.value = icons["apple"]
+	case "linux":
 		file, err := ini.Load("/etc/os-release")
 		check(err)
 		switch file.Section("").Key("ID").Value() {
 		case "arch":
-			segment.value = iconArch
+			segment.value = icons["arch"]
 		case "centos":
-			segment.value = iconCentOS
+			segment.value = icons["centOS"]
 		case "debian":
-			segment.value = iconDebian
+			segment.value = icons["debian"]
 		case "fedora":
-			segment.value = iconFedora
+			segment.value = icons["fedora"]
 		case "linuxmint":
-			segment.value = iconMint
+			segment.value = icons["mint"]
 		case "suse", "opensuse":
-			segment.value = iconSUSE
+			segment.value = icons["SUSE"]
 		case "ubuntu":
-			segment.value = iconUbuntu
+			segment.value = icons["ubuntu"]
 		case "elementary":
-			segment.value = iconElementary
-		default:
-			fmt.Fprintln(os.Stderr, "bronze: Unrecognized operating system.")
+			segment.value = icons["elementary"]
 		}
 	}
-	segment.visible = true
+
+	segment.visible = segment.value != ""
 }

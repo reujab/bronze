@@ -14,7 +14,7 @@ func shortDirSegment(segment *segment) {
 	check(err)
 
 	if strings.HasPrefix(cwd, usr.HomeDir) {
-		cwd = iconHome + cwd[len(usr.HomeDir):]
+		cwd = icons["home"] + cwd[len(usr.HomeDir):]
 	}
 
 	split := strings.Split(cwd, string(os.PathSeparator))

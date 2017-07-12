@@ -18,12 +18,15 @@ func gitSegment(segment *segment) {
 	}
 	defer repo.Free()
 
-	var domain string
+	var domainName string
 	remote, err := repo.Remotes.Lookup("origin")
 	if err == nil {
 		uri, err := url.Parse(remote.Url())
 		check(err)
-		domain = uri.Hostname()
+		// strip the tld off the hostname
+		if len(uri.Hostname()) > 4 {
+			domainName = uri.Hostname()[:len(uri.Hostname())-4]
+		}
 		remote.Free()
 	}
 
@@ -75,18 +78,18 @@ func gitSegment(segment *segment) {
 	status.Free()
 
 	var segments []string
-	switch domain {
-	case "github.com":
-		segments = append(segments, iconGithub)
-	case "gitlab.com":
-		segments = append(segments, iconGitlab)
-	case "bitbucket.org":
-		segments = append(segments, iconBitbucket)
-	default:
-		segments = append(segments, iconGit)
+	domainIcon := icons[domainName]
+	if domainIcon == "" {
+		domainIcon = icons["git"]
+	}
+	if domainIcon != "" {
+		segments = append(segments, domainIcon)
 	}
 	if stashes != 0 || ahead != 0 || behind != 0 {
-		segments = append(segments, strings.Repeat(iconStash, stashes)+strings.Repeat(iconAhead, ahead)+strings.Repeat(iconBehind, behind))
+		section := strings.Repeat(icons["stash"], stashes) + strings.Repeat(icons["ahead"], ahead) + strings.Repeat(icons["behind"], behind)
+		if section != "" {
+			segments = append(segments, section)
+		}
 	}
 	if branch != "" {
 		segments = append(segments, branch)
@@ -94,15 +97,15 @@ func gitSegment(segment *segment) {
 	if dirty {
 		segment.background = "yellow"
 
-		var icons string
+		var section string
 		if modified {
-			icons += iconCircle
+			section += icons["modified"]
 		}
 		if staged {
-			icons += iconPlus
+			section += icons["staged"]
 		}
-		if icons != "" {
-			segments = append(segments, icons)
+		if section != "" {
+			segments = append(segments, section)
 		}
 	}
 	segment.visible = true

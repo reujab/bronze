@@ -70,7 +70,7 @@ func cmdPrintAction(args []string) {
 		// if this isn't the first segment, before printing the next segment, separate them
 		if !first {
 			// use the last background as the current foreground
-			printSegment(segment.background, lastBackground, iconSeparator)
+			printSegment(segment.background, lastBackground, separator)
 		}
 		first = false
 
@@ -78,7 +78,7 @@ func cmdPrintAction(args []string) {
 		lastBackground = segment.background
 	}
 	// print final separator
-	printSegment("none", lastBackground, iconSeparator)
+	printSegment("none", lastBackground, separator)
 	resetColors()
 }
 
