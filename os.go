@@ -34,5 +34,7 @@ func osSegment(segment *segment) {
 		if segment.value == "" {
 			segment.value = icons["linux"]
 		}
+	case "freebsd", "netbsd", "openbsd":
+		segment.value = icons["bsd"]
 	}
 }
