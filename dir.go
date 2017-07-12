@@ -12,7 +12,6 @@ func dirSegment(segment *segment) {
 	cwd, err := os.Getwd()
 	check(err)
 
-	segment.visible = true
 	if strings.HasPrefix(cwd, usr.HomeDir) {
 		segment.value = icons["home"] + cwd[len(usr.HomeDir):]
 	} else {

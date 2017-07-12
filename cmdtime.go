@@ -15,6 +15,5 @@ func cmdTimeSegment(segment *segment) {
 		panic(err)
 	}
 
-	segment.visible = true
 	segment.value = duration.String()
 }

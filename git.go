@@ -108,6 +108,5 @@ func gitSegment(segment *segment) {
 			segments = append(segments, section)
 		}
 	}
-	segment.visible = true
 	segment.value = strings.Join(segments, " ")
 }

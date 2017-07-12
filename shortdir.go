@@ -25,6 +25,5 @@ func shortDirSegment(segment *segment) {
 		}
 	}
 
-	segment.visible = true
 	segment.value = strings.Join(split, string(os.PathSeparator))
 }

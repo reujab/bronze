@@ -32,6 +32,4 @@ func osSegment(segment *segment) {
 			segment.value = icons["elementary"]
 		}
 	}
-
-	segment.visible = segment.value != ""
 }

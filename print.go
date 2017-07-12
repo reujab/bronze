@@ -25,7 +25,6 @@ var cmdPrint = cli.Command{
 }
 
 type segment struct {
-	visible    bool
 	background string
 	foreground string
 	value      string
@@ -63,7 +62,7 @@ func cmdPrintAction(args []string) {
 	first := true
 	lastBackground := "white"
 	for _, segment := range segments {
-		if !segment.visible {
+		if segment.value == "" {
 			continue
 		}
 

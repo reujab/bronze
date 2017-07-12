@@ -29,6 +29,4 @@ func statusSegment(segment *segment) {
 	jobs, err := strconv.Atoi(os.Getenv("JOBS"))
 	check(err)
 	segment.value += strings.Repeat(icons["job"], jobs)
-
-	segment.visible = segment.value != ""
 }
