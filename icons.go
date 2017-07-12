@@ -62,7 +62,7 @@ func init() {
 		initIcon("github", "")
 		initIcon("gitlab", "")
 		initIcon("bitbucket", "")
-		initIcon("git", "\ue0a0")       // Powerline
+		initIcon("git", "")
 		initIcon("stash", "\U0001f4e5") // Emoji; inbox tray
 		initIcon("ahead", "\u2191")     // Unicode
 		initIcon("behind", "\u2193")    // Unicode
