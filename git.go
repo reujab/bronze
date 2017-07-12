@@ -77,7 +77,7 @@ func gitSegment(segment *segment) {
 		segments = append(segments, iconGithub)
 	case "gitlab.com":
 		segments = append(segments, iconGitlab)
-	case "bitbucket.com":
+	case "bitbucket.org":
 		segments = append(segments, iconBitbucket)
 	default:
 		segments = append(segments, iconGit)
