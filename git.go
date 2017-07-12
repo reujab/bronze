@@ -45,7 +45,10 @@ func gitSegment(segment *segment) {
 		}
 
 		branch, err = head.Branch().Name()
-		check(err)
+		if err != nil {
+			// head is detached
+			branch = head.Branch().Target().String()[:7]
+		}
 		head.Free()
 	}
 
