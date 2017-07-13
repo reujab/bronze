@@ -11,6 +11,7 @@ func cmdTimeSegment(segment *segment) {
 	if err != nil {
 		if shell == "bash" {
 			fmt.Fprintln(os.Stderr, "bronze: The 'cmdtime' command is supported in bash.")
+			os.Exit(1)
 		}
 		panic(err)
 	}
