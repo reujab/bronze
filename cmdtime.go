@@ -7,7 +7,7 @@ import (
 )
 
 func cmdTimeSegment(segment *segment) {
-	duration, err := time.ParseDuration(os.Getenv("CMDTIME"))
+	duration, err := time.ParseDuration(os.Getenv("cmdtime"))
 	if err != nil {
 		if shell == "bash" {
 			fmt.Fprintln(os.Stderr, "bronze: The 'cmdtime' command is supported in bash.")

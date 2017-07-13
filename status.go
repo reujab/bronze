@@ -20,13 +20,13 @@ func statusSegment(segment *segment) {
 		segment.value += icons["readonly"]
 	}
 
-	status, err := strconv.Atoi(os.Getenv("STATUS"))
+	status, err := strconv.Atoi(os.Getenv("status"))
 	check(err)
 	if status != 0 {
 		segment.value += icons["failed"]
 	}
 
-	jobs, err := strconv.Atoi(os.Getenv("JOBS"))
+	jobs, err := strconv.Atoi(os.Getenv("jobs"))
 	check(err)
 	segment.value += strings.Repeat(icons["job"], jobs)
 }

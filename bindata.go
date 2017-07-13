@@ -48,7 +48,7 @@ func (fi bindataFileInfo) Sys() interface{} {
 
 var _initBash = []byte(`PROMPT_COMMAND=bronze_prompt
 bronze_prompt() {
-	PS1="$(STATUS=$? JOBS=$(jobs -p | wc -l) bronze print "${BRONZE[@]}") "
+	PS1="$(status=$? jobs=$(jobs -p | wc -l) bronze print "${BRONZE[@]}") "
 }
 `)
 
@@ -62,7 +62,7 @@ func initBash() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "init.bash", size: 122, mode: os.FileMode(420), modTime: time.Unix(1499855240, 0)}
+	info := bindataFileInfo{name: "init.bash", size: 122, mode: os.FileMode(420), modTime: time.Unix(1499919910, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -75,7 +75,7 @@ preexec() {
 }
 
 precmd() {
-	PROMPT="$(env STATUS=$? JOBS=$#jobstates CMDTIME=$(($(date +%s%3N)-$BRONZE_START))ms bronze print "${BRONZE[@]}") "
+	PROMPT="$(env status=$? jobs=$#jobstates cmdtime=$(($(date +%s%3N)-$BRONZE_START))ms bronze print "${BRONZE[@]}") "
 }
 `)
 
@@ -89,12 +89,12 @@ func initZsh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "init.zsh", size: 225, mode: os.FileMode(420), modTime: time.Unix(1499855228, 0)}
+	info := bindataFileInfo{name: "init.zsh", size: 225, mode: os.FileMode(420), modTime: time.Unix(1499919920, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
 
-var _initFish = []byte(`function fish_prompt; env STATUS=$status JOBS=(count (jobs -p)) CMDTIME={$CMD_DURATION}ms bronze print $BRONZE; echo -n ' '; end
+var _initFish = []byte(`function fish_prompt; env status=$status jobs=(count (jobs -p)) cmdtime={$CMD_DURATION}ms bronze print $BRONZE; echo -n ' '; end
 `)
 
 func initFishBytes() ([]byte, error) {
@@ -107,7 +107,7 @@ func initFish() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "init.fish", size: 129, mode: os.FileMode(420), modTime: time.Unix(1499855206, 0)}
+	info := bindataFileInfo{name: "init.fish", size: 129, mode: os.FileMode(420), modTime: time.Unix(1499919929, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
