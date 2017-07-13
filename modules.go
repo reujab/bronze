@@ -19,6 +19,8 @@ func handleModule(module string, segment *segment) {
 		gitSegment(segment)
 	case "cmdtime":
 		cmdTimeSegment(segment)
+	case "time":
+		timeSegment(segment)
 	default:
 		fmt.Fprintf(os.Stderr, "bronze: Invalid module: %q.\n", module)
 		os.Exit(1)
