@@ -16,5 +16,8 @@ func cmdTimeSegment(segment *segment) {
 		panic(err)
 	}
 
-	segment.value = duration.String()
+	threshold, err := time.ParseDuration(os.Getenv("BRONZE_CMDTIME_THRESHOLD"))
+	if err != nil || duration >= threshold {
+		segment.value = duration.String()
+	}
 }
