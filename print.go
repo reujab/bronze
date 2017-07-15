@@ -72,7 +72,7 @@ func cmdPrintAction(args []string) {
 		// if this isn't the first segment, before printing the next segment, separate them
 		if !first {
 			if segment.background == lastSegment.background {
-				printSegment(segment.background, lastSegment.foreground, "\ue0b1")
+				printSegment(segment.background, lastSegment.foreground, thinSeparator)
 			} else {
 				// use the last background as the current foreground
 				printSegment(segment.background, lastSegment.background, separator)
