@@ -60,7 +60,10 @@ func cmdPrintAction(args []string) {
 
 	// print the prompt
 	first := true
-	lastBackground := "white"
+	lastSegment := &segment{
+		background: "black",
+		foreground: "white",
+	}
 	for _, segment := range segments {
 		if segment.value == "" {
 			continue
@@ -68,16 +71,20 @@ func cmdPrintAction(args []string) {
 
 		// if this isn't the first segment, before printing the next segment, separate them
 		if !first {
-			// use the last background as the current foreground
-			printSegment(segment.background, lastBackground, separator)
+			if segment.background == lastSegment.background {
+				printSegment(segment.background, lastSegment.foreground, "\ue0b1")
+			} else {
+				// use the last background as the current foreground
+				printSegment(segment.background, lastSegment.background, separator)
+			}
 		}
 		first = false
 
 		printSegment(segment.background, segment.foreground, " "+segment.value+" ")
-		lastBackground = segment.background
+		lastSegment = segment
 	}
 	// print final separator
-	printSegment("none", lastBackground, separator)
+	printSegment("none", lastSegment.background, separator)
 	resetColors()
 }
 

@@ -6,6 +6,7 @@ import (
 )
 
 var separator = os.Getenv("BRONZE_SEPARATOR")
+var thinSeparator = os.Getenv("BRONZE_THIN_SEPARATOR")
 var iconMode = os.Getenv("BRONZE_ICONS")
 var icons = map[string]string{}
 
@@ -13,6 +14,9 @@ func init() {
 	// set defaults
 	if separator == "" {
 		separator = "\ue0b0" // Powerline
+	}
+	if thinSeparator == "" {
+		thinSeparator = "\ue0b1" // Powerline
 	}
 	if iconMode == "" {
 		iconMode = "nerd"
