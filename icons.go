@@ -34,7 +34,7 @@ func init() {
 		initIcon("ubuntu", "\uf30c")     // Font Linux
 		initIcon("elementary", "\uf311") // Font Linux
 		initIcon("linux", "\uf17c")      // Font Awesome; linux
-		initIcon("bsd", "\uf10f")        // Font Linux
+		initIcon("bsd", "\uf30e")        // Font Linux
 		initIcon("root", "\ue00a")       // Pomicons; lightning
 		initIcon("readonly", "\uf023")   // Font Awesome; lock
 		initIcon("failed", "\ue009")     // Pomicons; exclamation
