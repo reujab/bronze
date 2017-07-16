@@ -61,8 +61,8 @@ func init() {
 		initIcon("SUSE", "")
 		initIcon("ubuntu", "")
 		initIcon("elementary", "")
-		initIcon("linux", "\U0001f427") // Emoji; penguin
-		initIcon("bsd", "")
+		initIcon("linux", "\U0001f427")    // Emoji; penguin
+		initIcon("bsd", "\U0001f608")      // Emoji; smiling face with horns
 		initIcon("root", "\u26a1")         // Emoji; high voltage
 		initIcon("readonly", "\U0001f512") // Emoji; locked
 		initIcon("failed", "\u2757")       // Emoji; exclamation mark
