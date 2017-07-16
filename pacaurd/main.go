@@ -60,5 +60,5 @@ func getPackages() {
 		packages++
 	}
 	check(scanner.Err())
-	check(cmd.Wait())
+	cmd.Wait()
 }
