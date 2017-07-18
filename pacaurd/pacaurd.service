@@ -1,0 +1,8 @@
+[Unit]
+Description=Starts the pacaur daemon
+
+[Service]
+ExecStart=/usr/local/bin/pacaurd
+
+[Install]
+WantedBy=multi-user.target
