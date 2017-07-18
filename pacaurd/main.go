@@ -49,6 +49,10 @@ func check(err error) {
 }
 
 func getPackages() {
+	// update pacman databases
+	check(exec.Command("pacman", "-Syy").Run())
+
+	// count packages with available updates
 	packages = 0
 
 	cmd := exec.Command("pacaur", "-Qu")
