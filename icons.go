@@ -48,8 +48,8 @@ func init() {
 		initIcon("stash", "\uf01c")      // Font Awesome; inbox
 		initIcon("ahead", "\uf148")      // Font Awesome; level-up
 		initIcon("behind", "\uf149")     // Font Awesome; level-down
-		initIcon("modified", "\u25cf")   // Unicode
-		initIcon("staged", "\u271a")     // Unicode
+		initIcon("modified", "\uf111")   // Unicode
+		initIcon("staged", "\uf067")     // Unicode
 	case "unicode":
 		// TODO: test if it's possible to use \uf8ff on an Apple machine
 		initIcon("apple", "\U0001f34e") // Emoji; red apple
