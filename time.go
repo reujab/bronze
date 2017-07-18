@@ -1,7 +1,11 @@
 package main
 
-import "time"
+import (
+	"time"
 
-func timeSegment(segment *segment) {
-	segment.value = time.Now().Format(time.Kitchen)
+	. "github.com/reujab/bronze/types"
+)
+
+func timeSegment(segment *Segment) {
+	segment.Value = time.Now().Format(time.Kitchen)
 }

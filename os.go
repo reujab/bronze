@@ -4,37 +4,38 @@ import (
 	"runtime"
 
 	"github.com/go-ini/ini"
+	. "github.com/reujab/bronze/types"
 )
 
-func osSegment(segment *segment) {
+func osSegment(segment *Segment) {
 	switch runtime.GOOS {
 	case "darwin":
-		segment.value = icons["apple"]
+		segment.Value = icons["apple"]
 	case "linux":
 		file, err := ini.Load("/etc/os-release")
 		check(err)
 		switch file.Section("").Key("ID").Value() {
 		case "arch":
-			segment.value = icons["arch"]
+			segment.Value = icons["arch"]
 		case "centos":
-			segment.value = icons["centOS"]
+			segment.Value = icons["centOS"]
 		case "debian":
-			segment.value = icons["debian"]
+			segment.Value = icons["debian"]
 		case "fedora":
-			segment.value = icons["fedora"]
+			segment.Value = icons["fedora"]
 		case "linuxmint":
-			segment.value = icons["mint"]
+			segment.Value = icons["mint"]
 		case "suse", "opensuse":
-			segment.value = icons["SUSE"]
+			segment.Value = icons["SUSE"]
 		case "ubuntu":
-			segment.value = icons["ubuntu"]
+			segment.Value = icons["ubuntu"]
 		case "elementary":
-			segment.value = icons["elementary"]
+			segment.Value = icons["elementary"]
 		}
-		if segment.value == "" {
-			segment.value = icons["linux"]
+		if segment.Value == "" {
+			segment.Value = icons["linux"]
 		}
 	case "freebsd", "netbsd", "openbsd":
-		segment.value = icons["bsd"]
+		segment.Value = icons["bsd"]
 	}
 }

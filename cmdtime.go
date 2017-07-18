@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"os"
 	"time"
+
+	. "github.com/reujab/bronze/types"
 )
 
-func cmdTimeSegment(segment *segment) {
+func cmdTimeSegment(segment *Segment) {
 	duration, err := time.ParseDuration(os.Getenv("cmdtime"))
 	if err != nil {
 		if shell == "bash" {
@@ -18,6 +20,6 @@ func cmdTimeSegment(segment *segment) {
 
 	threshold, err := time.ParseDuration(os.Getenv("BRONZE_CMDTIME_THRESHOLD"))
 	if err != nil || duration >= threshold {
-		segment.value = duration.String()
+		segment.Value = duration.String()
 	}
 }

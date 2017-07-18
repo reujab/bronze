@@ -6,27 +6,28 @@ import (
 	"strconv"
 	"strings"
 
+	. "github.com/reujab/bronze/types"
 	"golang.org/x/sys/unix"
 )
 
-func statusSegment(segment *segment) {
+func statusSegment(segment *Segment) {
 	usr, err := user.Current()
 	check(err)
 	if usr.Uid == "0" {
-		segment.value += icons["root"]
+		segment.Value += icons["root"]
 	}
 
 	if unix.Access(".", unix.W_OK) != nil {
-		segment.value += icons["readonly"]
+		segment.Value += icons["readonly"]
 	}
 
 	status, err := strconv.Atoi(os.Getenv("status"))
 	check(err)
 	if status != 0 {
-		segment.value += icons["failed"]
+		segment.Value += icons["failed"]
 	}
 
 	jobs, err := strconv.Atoi(os.Getenv("jobs"))
 	check(err)
-	segment.value += strings.Repeat(icons["job"], jobs)
+	segment.Value += strings.Repeat(icons["job"], jobs)
 }

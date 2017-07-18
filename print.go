@@ -6,6 +6,7 @@ import (
 	"strings"
 	"sync"
 
+	. "github.com/reujab/bronze/types"
 	"github.com/urfave/cli"
 )
 
@@ -24,14 +25,8 @@ var cmdPrint = cli.Command{
 	},
 }
 
-type segment struct {
-	background string
-	foreground string
-	value      string
-}
-
 func cmdPrintAction(args []string) {
-	var segments []*segment
+	var segments []*Segment
 	waitgroup := new(sync.WaitGroup)
 	waitgroup.Add(len(args))
 
@@ -43,9 +38,9 @@ func cmdPrintAction(args []string) {
 			os.Exit(1)
 		}
 
-		segment := &segment{
-			background: fields[1],
-			foreground: fields[2],
+		segment := &Segment{
+			Background: fields[1],
+			Foreground: fields[2],
 		}
 		segments = append(segments, segment)
 
@@ -60,31 +55,31 @@ func cmdPrintAction(args []string) {
 
 	// print the prompt
 	first := true
-	lastSegment := &segment{
-		background: "black",
-		foreground: "white",
+	lastSegment := &Segment{
+		Background: "black",
+		Foreground: "white",
 	}
 	for _, segment := range segments {
-		if segment.value == "" {
+		if segment.Value == "" {
 			continue
 		}
 
 		// if this isn't the first segment, before printing the next segment, separate them
 		if !first {
-			if segment.background == lastSegment.background {
-				printSegment(segment.background, lastSegment.foreground, thinSeparator)
+			if segment.Background == lastSegment.Background {
+				printSegment(segment.Background, lastSegment.Foreground, thinSeparator)
 			} else {
 				// use the last background as the current foreground
-				printSegment(segment.background, lastSegment.background, separator)
+				printSegment(segment.Background, lastSegment.Background, separator)
 			}
 		}
 		first = false
 
-		printSegment(segment.background, segment.foreground, " "+segment.value+" ")
+		printSegment(segment.Background, segment.Foreground, " "+segment.Value+" ")
 		lastSegment = segment
 	}
 	// print final separator
-	printSegment("none", lastSegment.background, separator)
+	printSegment("none", lastSegment.Background, separator)
 	resetColors()
 }
 

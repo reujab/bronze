@@ -5,9 +5,11 @@ import (
 	"net"
 	"strconv"
 	"strings"
+
+	. "github.com/reujab/bronze/types"
 )
 
-func pacaurSegment(segment *segment) {
+func pacaurSegment(segment *Segment) {
 	conn, err := net.Dial("unix", "/tmp/pacaurd.sock")
 	check(err)
 	defer func() { check(conn.Close()) }()
@@ -18,8 +20,8 @@ func pacaurSegment(segment *segment) {
 	check(err)
 
 	if num > 5 {
-		segment.value = icons["package"] + string(packages)
+		segment.Value = icons["package"] + string(packages)
 	} else {
-		segment.value = strings.Repeat(icons["package"], num)
+		segment.Value = strings.Repeat(icons["package"], num)
 	}
 }

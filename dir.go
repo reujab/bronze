@@ -6,21 +6,23 @@ import (
 	"strconv"
 	"strings"
 	"unicode/utf8"
+
+	. "github.com/reujab/bronze/types"
 )
 
-func dirSegment(segment *segment) {
+func dirSegment(segment *Segment) {
 	usr, err := user.Current()
 	check(err)
-	segment.value, err = os.Getwd()
+	segment.Value, err = os.Getwd()
 	check(err)
 	length, _ := strconv.Atoi(os.Getenv("BRONZE_DIR_LENGTH"))
 
-	if strings.HasPrefix(segment.value, usr.HomeDir) {
-		segment.value = icons["home"] + segment.value[len(usr.HomeDir):]
+	if strings.HasPrefix(segment.Value, usr.HomeDir) {
+		segment.Value = icons["home"] + segment.Value[len(usr.HomeDir):]
 	}
 
 	if length != 0 {
-		split := strings.Split(segment.value, string(os.PathSeparator))
+		split := strings.Split(segment.Value, string(os.PathSeparator))
 		for i := len(split) - 2; i >= 0; i-- {
 			char, size := utf8.DecodeRuneInString(split[i])
 			if size != 0 {
@@ -28,6 +30,6 @@ func dirSegment(segment *segment) {
 			}
 		}
 
-		segment.value = strings.Join(split, string(os.PathSeparator))
+		segment.Value = strings.Join(split, string(os.PathSeparator))
 	}
 }

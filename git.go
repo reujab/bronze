@@ -6,10 +6,11 @@ import (
 	"strings"
 
 	"github.com/libgit2/git2go"
+	. "github.com/reujab/bronze/types"
 )
 
 // the git segment provides useful information about a git repository such as the domain of the "origin" remote (with an icon), the current branch, and whether the HEAD is dirty
-func gitSegment(segment *segment) {
+func gitSegment(segment *Segment) {
 	dir, err := os.Getwd()
 	check(err)
 	repo, err := git.OpenRepositoryExtended(dir, 0, "/")
@@ -95,7 +96,7 @@ func gitSegment(segment *segment) {
 		segments = append(segments, branch)
 	}
 	if dirty {
-		segment.background = "yellow"
+		segment.Background = "yellow"
 
 		var section string
 		if modified {
@@ -108,5 +109,5 @@ func gitSegment(segment *segment) {
 			segments = append(segments, section)
 		}
 	}
-	segment.value = strings.Join(segments, " ")
+	segment.Value = strings.Join(segments, " ")
 }

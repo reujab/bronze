@@ -3,9 +3,11 @@ package main
 import (
 	"fmt"
 	"os"
+
+	. "github.com/reujab/bronze/types"
 )
 
-func handleModule(module string, segment *segment) {
+func handleModule(module string, segment *Segment) {
 	switch module {
 	case "os":
 		osSegment(segment)
