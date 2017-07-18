@@ -17,6 +17,7 @@ func main() {
 	sock, err := net.Listen("unix", "/tmp/pacaurd.sock")
 	check(err)
 	defer func() { check(sock.Close()) }()
+	check(os.Chmod("/tmp/pacaurd.sock", 0666))
 
 	getPackages()
 	go func() {
