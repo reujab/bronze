@@ -7,7 +7,7 @@ import (
 	. "github.com/reujab/bronze/types"
 )
 
-func handleModule(module string, segment *Segment) {
+func handleModule(module string, segment *Segment, args []string) {
 	switch module {
 	case "os":
 		osSegment(segment)
@@ -25,6 +25,8 @@ func handleModule(module string, segment *Segment) {
 		cmdTimeSegment(segment)
 	case "time":
 		timeSegment(segment)
+	case "plugin":
+		pluginSegment(segment, args)
 	default:
 		fmt.Fprintf(os.Stderr, "bronze: Invalid module: %q.\n", module)
 		os.Exit(1)

@@ -33,8 +33,8 @@ func cmdPrintAction(args []string) {
 	for _, arg := range args {
 		// validate argument
 		fields := strings.Split(arg, ":")
-		if len(fields) != 3 {
-			fmt.Fprintf(os.Stderr, "bronze: Invalid argument: %q. Exactly three fields expected.\n", arg)
+		if len(fields) < 3 {
+			fmt.Fprintf(os.Stderr, "bronze: Invalid argument: %q. At least three fields expected.\n", arg)
 			os.Exit(1)
 		}
 
@@ -45,7 +45,7 @@ func cmdPrintAction(args []string) {
 		segments = append(segments, segment)
 
 		go func() {
-			handleModule(fields[0], segment)
+			handleModule(fields[0], segment, fields[3:])
 			waitgroup.Done()
 		}()
 	}
