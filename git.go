@@ -44,7 +44,8 @@ func gitSegment(segment *Segment) {
 		upstream, err := head.Branch().Upstream()
 		if err == nil {
 			ahead, behind, err = repo.AheadBehind(head.Branch().Target(), upstream.Target())
-			die(err)
+		} else {
+			panic(err)
 		}
 
 		branch, err = head.Branch().Name()
