@@ -72,8 +72,8 @@ func resetColors() {
 	case "zsh":
 		fmt.Print("%{%f%}")
 	case "bash":
-		fmt.Printf("\\[\x1b[0m\\]")
+		fmt.Print("\\[\x1b[0m\\]")
 	default:
-		fmt.Printf("\x1b[0m")
+		fmt.Print("\x1b[0m")
 	}
 }
