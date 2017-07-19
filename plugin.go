@@ -15,9 +15,9 @@ func pluginSegment(segment *Segment, args []string) {
 	}
 
 	plug, err := plugin.Open(args[0])
-	check(err)
+	die(err)
 
 	handler, err := plug.Lookup("Main")
-	check(err)
+	die(err)
 	handler.(func(*Segment, []string))(segment, args[1:])
 }

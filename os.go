@@ -13,7 +13,7 @@ func osSegment(segment *Segment) {
 		segment.Value = icons["apple"]
 	case "linux":
 		file, err := ini.Load("/etc/os-release")
-		check(err)
+		die(err)
 		switch file.Section("").Key("ID").Value() {
 		case "arch":
 			segment.Value = icons["arch"]

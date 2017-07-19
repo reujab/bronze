@@ -12,9 +12,9 @@ import (
 
 func dirSegment(segment *Segment) {
 	usr, err := user.Current()
-	check(err)
+	die(err)
 	segment.Value, err = os.Getwd()
-	check(err)
+	die(err)
 	length, _ := strconv.Atoi(os.Getenv("BRONZE_DIR_LENGTH"))
 
 	if strings.HasPrefix(segment.Value, usr.HomeDir) {

@@ -11,13 +11,13 @@ import (
 
 func packagesSegment(segment *Segment) {
 	conn, err := net.Dial("unix", "/tmp/packagesd.sock")
-	check(err)
-	defer func() { check(conn.Close()) }()
+	die(err)
+	defer func() { die(conn.Close()) }()
 
 	packages, err := ioutil.ReadAll(conn)
-	check(err)
+	die(err)
 	num, err := strconv.Atoi(string(packages))
-	check(err)
+	die(err)
 
 	if num > 5 {
 		segment.Value = icons["package"] + string(packages)

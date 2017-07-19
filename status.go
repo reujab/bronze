@@ -12,7 +12,7 @@ import (
 
 func statusSegment(segment *Segment) {
 	usr, err := user.Current()
-	check(err)
+	die(err)
 	if usr.Uid == "0" {
 		segment.Value += icons["root"]
 	}
@@ -22,12 +22,12 @@ func statusSegment(segment *Segment) {
 	}
 
 	status, err := strconv.Atoi(os.Getenv("status"))
-	check(err)
+	die(err)
 	if status != 0 {
 		segment.Value += icons["failed"]
 	}
 
 	jobs, err := strconv.Atoi(os.Getenv("jobs"))
-	check(err)
+	die(err)
 	segment.Value += strings.Repeat(icons["job"], jobs)
 }

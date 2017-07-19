@@ -12,7 +12,7 @@ import (
 // the git segment provides useful information about a git repository such as the domain of the "origin" remote (with an icon), the current branch, and whether the HEAD is dirty
 func gitSegment(segment *Segment) {
 	dir, err := os.Getwd()
-	check(err)
+	die(err)
 	repo, err := git.OpenRepositoryExtended(dir, 0, "/")
 	if err != nil {
 		return
@@ -23,7 +23,7 @@ func gitSegment(segment *Segment) {
 	remote, err := repo.Remotes.Lookup("origin")
 	if err == nil {
 		uri, err := url.Parse(remote.Url())
-		check(err)
+		die(err)
 		// strip the tld off the hostname
 		if len(uri.Hostname()) > 4 {
 			domainName = uri.Hostname()[:len(uri.Hostname())-4]
@@ -41,11 +41,11 @@ func gitSegment(segment *Segment) {
 	var branch string
 	head, err := repo.Head()
 	if err == nil {
-		check(err)
+		die(err)
 		upstream, err := head.Branch().Upstream()
 		if err == nil {
 			ahead, behind, err = repo.AheadBehind(head.Branch().Target(), upstream.Target())
-			check(err)
+			die(err)
 		}
 
 		branch, err = head.Branch().Name()
@@ -60,15 +60,15 @@ func gitSegment(segment *Segment) {
 	status, err := repo.StatusList(&git.StatusOptions{
 		Flags: git.StatusOptIncludeUntracked,
 	})
-	check(err)
+	die(err)
 	count, err := status.EntryCount()
-	check(err)
+	die(err)
 	if count != 0 {
 		dirty = true
 	}
 	for i := 0; i < count; i++ {
 		entry, err := status.ByIndex(i)
-		check(err)
+		die(err)
 		if entry.Status&git.StatusWtNew != 0 || entry.Status&git.StatusWtModified != 0 || entry.Status&git.StatusWtDeleted != 0 || entry.Status&git.StatusWtTypeChange != 0 || entry.Status&git.StatusWtRenamed != 0 {
 			modified = true
 		}

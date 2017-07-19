@@ -9,8 +9,8 @@ import (
 
 func userSegment(segment *Segment) {
 	usr, err := user.Current()
-	check(err)
+	die(err)
 	hostname, err := os.Hostname()
-	check(err)
+	die(err)
 	segment.Value = usr.Username + "@" + hostname
 }
