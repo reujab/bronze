@@ -49,12 +49,26 @@ func check(err error) {
 }
 
 func getPackages() {
+	packages = 0
+
+	_, err := exec.LookPath("pacaur")
+	if err == nil {
+		queryPacaur()
+		return
+	}
+
+	_, err = exec.LookPath("apt")
+	if err == nil {
+		queryApt()
+		return
+	}
+}
+
+func queryPacaur() {
 	// update pacman databases
 	check(exec.Command("pacman", "-Syy").Run())
 
 	// count packages with available updates
-	packages = 0
-
 	cmd := exec.Command("pacaur", "-Qu")
 	stdout, err := cmd.StdoutPipe()
 	check(err)
@@ -65,5 +79,25 @@ func getPackages() {
 		packages++
 	}
 	check(scanner.Err())
-	cmd.Wait()
+	_ = cmd.Wait()
+}
+
+func queryApt() {
+	// update apt databases
+	check(exec.Command("apt", "update").Run())
+
+	// count packages with available updates
+	cmd := exec.Command("apt", "list", "--upgradable")
+	stdout, err := cmd.StdoutPipe()
+	check(err)
+	check(cmd.Start())
+
+	scanner := bufio.NewScanner(stdout)
+	for scanner.Scan() {
+		packages++
+	}
+	// account for the first line, "Listing... Done"
+	packages--
+	check(scanner.Err())
+	_ = cmd.Wait()
 }
