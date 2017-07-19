@@ -31,7 +31,7 @@ func main() {
 		for {
 			conn, err := sock.Accept()
 			check(err)
-			conn.Write([]byte(strconv.Itoa(packages)))
+			_, _ = conn.Write([]byte(strconv.Itoa(packages)))
 			check(conn.Close())
 		}
 	}()
