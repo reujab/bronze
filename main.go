@@ -3,14 +3,11 @@ package main
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 
 	"github.com/urfave/cli"
 )
 
-// the shell environment variable is not always the current shell
-// you should explicitly set the variable in your *shrc
-var shell = filepath.Base(os.Getenv("SHELL"))
+var shell = os.Getenv("BRONZE_SHELL")
 
 func main() {
 	app := cli.NewApp()
