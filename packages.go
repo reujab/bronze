@@ -9,8 +9,8 @@ import (
 	. "github.com/reujab/bronze/types"
 )
 
-func pacaurSegment(segment *Segment) {
-	conn, err := net.Dial("unix", "/tmp/pacaurd.sock")
+func packagesSegment(segment *Segment) {
+	conn, err := net.Dial("unix", "/tmp/packagesd.sock")
 	check(err)
 	defer func() { check(conn.Close()) }()
 

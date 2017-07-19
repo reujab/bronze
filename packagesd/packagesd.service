@@ -1,0 +1,8 @@
+[Unit]
+Description=Starts the bronze packages daemon
+
+[Service]
+ExecStart=/usr/local/bin/packagesd
+
+[Install]
+WantedBy=multi-user.target

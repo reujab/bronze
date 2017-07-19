@@ -14,10 +14,10 @@ import (
 var packages int // packages to update
 
 func main() {
-	sock, err := net.Listen("unix", "/tmp/pacaurd.sock")
+	sock, err := net.Listen("unix", "/tmp/packagesd.sock")
 	check(err)
 	defer func() { check(sock.Close()) }()
-	check(os.Chmod("/tmp/pacaurd.sock", 0666))
+	check(os.Chmod("/tmp/packagesd.sock", 0666))
 
 	getPackages()
 	go func() {

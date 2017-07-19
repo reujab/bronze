@@ -13,8 +13,8 @@ func handleModule(module string, segment *Segment, args []string) {
 		osSegment(segment)
 	case "status":
 		statusSegment(segment)
-	case "pacaur":
-		pacaurSegment(segment)
+	case "packages":
+		packagesSegment(segment)
 	case "user":
 		userSegment(segment)
 	case "dir":
