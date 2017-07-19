@@ -12,9 +12,13 @@ func osSegment(segment *Segment) {
 	case "darwin":
 		segment.Value = icons["apple"]
 	case "linux":
+		var distro string
 		file, err := ini.Load("/etc/os-release")
-		die(err)
-		switch file.Section("").Key("ID").Value() {
+		if err == nil {
+			distro = file.Section("").Key("ID").Value()
+		}
+
+		switch distro {
 		case "arch":
 			segment.Value = icons["arch"]
 		case "centos":
@@ -31,8 +35,7 @@ func osSegment(segment *Segment) {
 			segment.Value = icons["ubuntu"]
 		case "elementary":
 			segment.Value = icons["elementary"]
-		}
-		if segment.Value == "" {
+		default:
 			segment.Value = icons["linux"]
 		}
 	case "freebsd", "netbsd", "openbsd":
