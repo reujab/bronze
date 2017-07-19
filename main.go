@@ -19,12 +19,14 @@ func main() {
 	app.Run(os.Args)
 }
 
+// panic on errors that should never occur
 func die(err error) {
 	if err != nil {
 		panic(err)
 	}
 }
 
+// display a user-friendly error message on user error
 func dief(format string, args ...interface{}) {
 	fmt.Fprintf(os.Stderr, "bronze: "+format, args...)
 	os.Exit(1)
