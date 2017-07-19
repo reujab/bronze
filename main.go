@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 
@@ -24,5 +25,16 @@ func main() {
 func die(err error) {
 	if err != nil {
 		panic(err)
+	}
+}
+
+func dief(format string, args ...interface{}) {
+	fmt.Fprintf(os.Stderr, "bronze: "+format, args...)
+	os.Exit(1)
+}
+
+func dieIf(err error, format string, args ...interface{}) {
+	if err != nil {
+		dief(format, args...)
 	}
 }

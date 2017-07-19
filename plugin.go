@@ -1,8 +1,7 @@
 package main
 
 import (
-	"fmt"
-	"os"
+	"path/filepath"
 	"plugin"
 
 	. "github.com/reujab/bronze/types"
@@ -10,14 +9,13 @@ import (
 
 func pluginSegment(segment *Segment, args []string) {
 	if len(args) == 0 {
-		fmt.Fprintln(os.Stderr, "bronze: plugin: Expected at least one argument.")
-		os.Exit(1)
+		dief("plugin: expected at least one argument")
 	}
 
 	plug, err := plugin.Open(args[0])
-	die(err)
+	dieIf(err, "plugin: failed to open plugin: %q", args[0])
 
 	handler, err := plug.Lookup("Main")
-	die(err)
+	dieIf(err, "plugin: failed to lookup Main symbol in %q", filepath.Base(args[0]))
 	handler.(func(*Segment, []string))(segment, args[1:])
 }

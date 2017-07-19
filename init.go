@@ -3,7 +3,6 @@ package main
 //go:generate go-bindata -nocompress init.bash init.zsh init.fish
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/urfave/cli"
@@ -18,7 +17,7 @@ var cmdInit = cli.Command{
 		if err == nil {
 			os.Stdout.Write(script)
 		} else {
-			fmt.Fprintln(os.Stderr, "bronze: Unrecognized shell.")
+			dief("unrecognized shell")
 		}
 		return nil
 	},

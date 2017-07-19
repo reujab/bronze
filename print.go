@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"strings"
 	"sync"
 
@@ -34,8 +33,7 @@ func cmdPrintAction(args []string) {
 		// validate argument
 		fields := strings.Split(arg, ":")
 		if len(fields) < 3 {
-			fmt.Fprintf(os.Stderr, "bronze: Invalid argument: %q. At least three fields expected.\n", arg)
-			os.Exit(1)
+			dief("invalid argument: %q, at least three fields expected", arg)
 		}
 
 		segment := &Segment{

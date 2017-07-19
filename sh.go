@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 )
 
 var colors = map[string]string{
@@ -32,15 +31,13 @@ func escapeBackground(color string) string {
 	case "bash":
 		code, ok := colors["bg-"+color]
 		if !ok {
-			fmt.Fprintf(os.Stderr, "bronze: Invalid background color: %q.", color)
-			os.Exit(1)
+			dief("invalid background color: %q", color)
 		}
 		return "\\[\x1b[" + code + "m\\]"
 	default:
 		code, ok := colors["bg-"+color]
 		if !ok {
-			fmt.Fprintf(os.Stderr, "bronze: Invalid background color: %q.", color)
-			os.Exit(1)
+			dief("invalid background color: %q", color)
 		}
 		return "\x1b[" + code + "m"
 	}
@@ -53,15 +50,13 @@ func escapeForeground(color string) string {
 	case "bash":
 		code, ok := colors["fg-"+color]
 		if !ok {
-			fmt.Fprintf(os.Stderr, "bronze: Invalid foreground color: %q.", color)
-			os.Exit(1)
+			dief("invalid background color: %q", color)
 		}
 		return "\\[\x1b[" + code + "m\\]"
 	default:
 		code, ok := colors["fg-"+color]
 		if !ok {
-			fmt.Fprintf(os.Stderr, "bronze: Invalid foreground color: %q.", color)
-			os.Exit(1)
+			dief("invalid background color: %q", color)
 		}
 		return "\x1b[" + code + "m"
 	}

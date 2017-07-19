@@ -11,7 +11,7 @@ import (
 
 func packagesSegment(segment *Segment) {
 	conn, err := net.Dial("unix", "/tmp/packagesd.sock")
-	die(err)
+	dieIf(err, "failed to connect to packagesd socket")
 	defer func() { die(conn.Close()) }()
 
 	packages, err := ioutil.ReadAll(conn)

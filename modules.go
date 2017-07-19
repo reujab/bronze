@@ -1,9 +1,6 @@
 package main
 
 import (
-	"fmt"
-	"os"
-
 	. "github.com/reujab/bronze/types"
 )
 
@@ -28,7 +25,6 @@ func handleModule(module string, segment *Segment, args []string) {
 	case "plugin":
 		pluginSegment(segment, args)
 	default:
-		fmt.Fprintf(os.Stderr, "bronze: Invalid module: %q.\n", module)
-		os.Exit(1)
+		dief("invalid module: %q", module)
 	}
 }
