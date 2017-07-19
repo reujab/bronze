@@ -57,6 +57,12 @@ func getPackages() {
 		return
 	}
 
+	_, err = exec.LookPath("dnf")
+	if err == nil {
+		queryDnf()
+		return
+	}
+
 	_, err = exec.LookPath("apt")
 	if err == nil {
 		queryApt()
@@ -78,6 +84,23 @@ func queryPacaur() {
 	for scanner.Scan() {
 		packages++
 	}
+	check(scanner.Err())
+	_ = cmd.Wait()
+}
+
+func queryDnf() {
+	// count packages with available updates
+	cmd := exec.Command("dnf", "check-update", "-q")
+	stdout, err := cmd.StdoutPipe()
+	check(err)
+	check(cmd.Start())
+
+	scanner := bufio.NewScanner(stdout)
+	for scanner.Scan() {
+		packages++
+	}
+	// account for the blank line
+	packages--
 	check(scanner.Err())
 	_ = cmd.Wait()
 }
