@@ -5,7 +5,6 @@ import (
 	"os/user"
 	"strconv"
 	"strings"
-	"unicode/utf8"
 
 	. "github.com/reujab/bronze/types"
 )
@@ -24,9 +23,9 @@ func dirSegment(segment *Segment) {
 	if length != 0 {
 		split := strings.Split(segment.Value, string(os.PathSeparator))
 		for i := len(split) - 2; i >= 0; i-- {
-			char, size := utf8.DecodeRuneInString(split[i])
-			if size != 0 {
-				split[i] = string(char)
+			runes := []rune(split[i])
+			if len(runes) > length {
+				split[i] = string(runes[:length])
 			}
 		}
 
