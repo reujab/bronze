@@ -21,14 +21,14 @@ func dirSegment(segment *Segment) {
 	}
 
 	if length != 0 {
-		split := strings.Split(segment.Value, string(os.PathSeparator))
-		for i := len(split) - 2; i >= 0; i-- {
-			runes := []rune(split[i])
+		dirs := strings.Split(segment.Value, string(os.PathSeparator))
+		for i := len(dirs) - 2; i >= 0; i-- {
+			runes := []rune(dirs[i])
 			if len(runes) > length {
-				split[i] = string(runes[:length])
+				dirs[i] = string(runes[:length])
 			}
 		}
 
-		segment.Value = strings.Join(split, string(os.PathSeparator))
+		segment.Value = strings.Join(dirs, string(os.PathSeparator))
 	}
 }
