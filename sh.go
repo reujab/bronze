@@ -50,13 +50,13 @@ func escapeForeground(color string) string {
 	case "bash":
 		code, ok := colors["fg-"+color]
 		if !ok {
-			dief("invalid background color: %q", color)
+			dief("invalid foreground color: %q", color)
 		}
 		return "\\[\x1b[" + code + "m\\]"
 	default:
 		code, ok := colors["fg-"+color]
 		if !ok {
-			dief("invalid background color: %q", color)
+			dief("invalid foreground color: %q", color)
 		}
 		return "\x1b[" + code + "m"
 	}
