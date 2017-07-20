@@ -39,9 +39,10 @@ func escapeBackground(color string) string {
 		// 16 and 256 colors
 		return "%K{" + color + "}"
 	case "bash":
-		// 24-bit color
-		if hexRegex.MatchString(color) {
-			return "\\[\x1b[48;2;" + escapeHex(color) + "m\\]"
+		// 16 colors
+		code := colors["bg-"+color]
+		if code != "" {
+			return "\\[\x1b[" + code + "m\\]"
 		}
 
 		// 256 colors
@@ -50,13 +51,19 @@ func escapeBackground(color string) string {
 			return "\\[\x1b[48;5;" + color + "m\\]"
 		}
 
-		// 16 colors
-		code, ok := colors["bg-"+color]
-		if !ok {
-			dief("invalid background color: %q", color)
+		// 24-bit color
+		if hexRegex.MatchString(color) {
+			return "\\[\x1b[48;2;" + escapeHex(color) + "m\\]"
 		}
-		return "\\[\x1b[" + code + "m\\]"
+
+		dief("invalid background color: %q", color)
 	default:
+		// 16 colors
+		code := colors["bg-"+color]
+		if code != "" {
+			return "\x1b[" + code + "m"
+		}
+
 		// 24-bit color
 		if hexRegex.MatchString(color) {
 			return "\x1b[48;2;" + escapeHex(color) + "m"
@@ -68,12 +75,7 @@ func escapeBackground(color string) string {
 			return "\x1b[48;5;" + color + "m"
 		}
 
-		// 16 colors
-		code, ok := colors["bg-"+color]
-		if !ok {
-			dief("invalid background color: %q", color)
-		}
-		return "\x1b[" + code + "m"
+		dief("invalid background color: %q", color)
 	}
 }
 
@@ -88,41 +90,43 @@ func escapeForeground(color string) string {
 		// 16 and 256 colors
 		return "%F{" + color + "}"
 	case "bash":
+		// 16 colors
+		code := colors["fg-"+color]
+		if code != "" {
+			return "\\[\x1b[" + code + "m\\]"
+		}
+
+		// 256 colors
+		_, err := strconv.Atoi(color)
+		if err == nil {
+			return "\x1b[38;5;" + color + "m"
+		}
+
 		// 24-bit color
 		if hexRegex.MatchString(color) {
 			return "\\[\x1b[38;2;" + escapeHex(color) + "m\\]"
 		}
 
+		dief("invalid foreground color: %q", color)
+	default:
+		// 16 colors
+		code := colors["fg-"+color]
+		if code != "" {
+			return "\x1b[" + code + "m"
+		}
+
 		// 256 colors
 		_, err := strconv.Atoi(color)
 		if err == nil {
 			return "\x1b[38;5;" + color + "m"
 		}
 
-		// 16 colors
-		code, ok := colors["fg-"+color]
-		if !ok {
-			dief("invalid foreground color: %q", color)
-		}
-		return "\\[\x1b[" + code + "m\\]"
-	default:
 		// 24-bit color
 		if hexRegex.MatchString(color) {
 			return "\x1b[38;2;" + escapeHex(color) + "m"
 		}
 
-		// 256 colors
-		_, err := strconv.Atoi(color)
-		if err == nil {
-			return "\x1b[38;5;" + color + "m"
-		}
-
-		// 16 colors
-		code, ok := colors["fg-"+color]
-		if !ok {
-			dief("invalid foreground color: %q", color)
-		}
-		return "\x1b[" + code + "m"
+		dief("invalid foreground color: %q", color)
 	}
 }
 
