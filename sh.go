@@ -2,7 +2,10 @@ package main
 
 import (
 	"fmt"
+	"regexp"
 )
+
+var hexRegex = regexp.MustCompile(`^[a-f\d]{6}$`)
 
 var colors = map[string]string{
 	"bg-none":    "0",
@@ -35,6 +38,12 @@ func escapeBackground(color string) string {
 		}
 		return "\\[\x1b[" + code + "m\\]"
 	default:
+		// 24-bit color
+		if hexRegex.MatchString(color) {
+			return "\x1b[48;2;" + escapeHex(color) + "m"
+		}
+
+		// 16 colors
 		code, ok := colors["bg-"+color]
 		if !ok {
 			dief("invalid background color: %q", color)
@@ -54,6 +63,12 @@ func escapeForeground(color string) string {
 		}
 		return "\\[\x1b[" + code + "m\\]"
 	default:
+		// 24-bit color
+		if hexRegex.MatchString(color) {
+			return "\x1b[38;2;" + escapeHex(color) + "m"
+		}
+
+		// 16 colors
 		code, ok := colors["fg-"+color]
 		if !ok {
 			dief("invalid foreground color: %q", color)
@@ -71,4 +86,10 @@ func resetColors() {
 	default:
 		fmt.Print("\x1b[0m")
 	}
+}
+
+func escapeHex(color string) string {
+	var r, g, b byte
+	fmt.Sscanf(color, "%02x%02x%02x", &r, &g, &b)
+	return fmt.Sprintf("%d;%d;%d", r, g, b)
 }
