@@ -22,6 +22,8 @@ func handleModule(module string, segment *Segment, args []string) {
 		cmdTimeSegment(segment)
 	case "time":
 		timeSegment(segment)
+	case "env":
+		envSegment(segment, args)
 	case "plugin":
 		pluginSegment(segment, args)
 	default:
