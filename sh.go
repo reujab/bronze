@@ -44,6 +44,12 @@ func escapeBackground(color string) string {
 			return "\\[\x1b[48;2;" + escapeHex(color) + "m\\]"
 		}
 
+		// 256 colors
+		_, err := strconv.Atoi(color)
+		if err == nil {
+			return "\\[\x1b[48;5;" + color + "m\\]"
+		}
+
 		// 16 colors
 		code, ok := colors["bg-"+color]
 		if !ok {
@@ -85,6 +91,12 @@ func escapeForeground(color string) string {
 		// 24-bit color
 		if hexRegex.MatchString(color) {
 			return "\\[\x1b[38;2;" + escapeHex(color) + "m\\]"
+		}
+
+		// 256 colors
+		_, err := strconv.Atoi(color)
+		if err == nil {
+			return "\x1b[38;5;" + color + "m"
 		}
 
 		// 16 colors
