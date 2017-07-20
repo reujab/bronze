@@ -38,6 +38,12 @@ func escapeBackground(color string) string {
 		// 16 and 256 colors
 		return "%K{" + color + "}"
 	case "bash":
+		// 24-bit color
+		if hexRegex.MatchString(color) {
+			return "\\[\x1b[48;2;" + escapeHex(color) + "m\\]"
+		}
+
+		// 16 colors
 		code, ok := colors["bg-"+color]
 		if !ok {
 			dief("invalid background color: %q", color)
@@ -69,6 +75,12 @@ func escapeForeground(color string) string {
 		// 16 and 256 colors
 		return "%F{" + color + "}"
 	case "bash":
+		// 24-bit color
+		if hexRegex.MatchString(color) {
+			return "\\[\x1b[38;2;" + escapeHex(color) + "m\\]"
+		}
+
+		// 16 colors
 		code, ok := colors["fg-"+color]
 		if !ok {
 			dief("invalid foreground color: %q", color)
