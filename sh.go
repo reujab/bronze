@@ -30,6 +30,12 @@ var colors = map[string]string{
 func escapeBackground(color string) string {
 	switch shell {
 	case "zsh":
+		// 24-bit color
+		if hexRegex.MatchString(color) {
+			return "%{\x1b[48;2;" + escapeHex(color) + "m%}"
+		}
+
+		// 16 and 256 colors
 		return "%K{" + color + "}"
 	case "bash":
 		code, ok := colors["bg-"+color]
@@ -55,6 +61,12 @@ func escapeBackground(color string) string {
 func escapeForeground(color string) string {
 	switch shell {
 	case "zsh":
+		// 24-bit color
+		if hexRegex.MatchString(color) {
+			return "%{\x1b[38;2;" + escapeHex(color) + "m%}"
+		}
+
+		// 16 and 256 colors
 		return "%F{" + color + "}"
 	case "bash":
 		code, ok := colors["fg-"+color]
