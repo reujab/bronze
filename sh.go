@@ -77,6 +77,8 @@ func escapeBackground(color string) string {
 
 		dief("invalid background color: %q", color)
 	}
+
+	return ""
 }
 
 func escapeForeground(color string) string {
@@ -128,6 +130,8 @@ func escapeForeground(color string) string {
 
 		dief("invalid foreground color: %q", color)
 	}
+
+	return ""
 }
 
 func resetColors() {
