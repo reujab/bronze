@@ -45,8 +45,6 @@ func gitSegment(segment *Segment) {
 		if err == nil {
 			ahead, behind, err = repo.AheadBehind(head.Branch().Target(), upstream.Target())
 			die(err)
-		} else {
-			panic(err)
 		}
 
 		branch, err = head.Branch().Name()
@@ -55,8 +53,6 @@ func gitSegment(segment *Segment) {
 			branch = head.Branch().Target().String()[:7]
 		}
 		head.Free()
-	} else {
-		panic(err)
 	}
 
 	var dirty, modified, staged bool
