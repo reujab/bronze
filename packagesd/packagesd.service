@@ -1,5 +1,7 @@
 [Unit]
-Description=Starts the bronze packages daemon
+Description=bronze packages daemon
+Requires=network-online.target
+After=network-online.target
 
 [Service]
 ExecStart=/usr/local/bin/packagesd
