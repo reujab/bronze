@@ -59,7 +59,10 @@ func gitSegment(segment *Segment) {
 	status, err := repo.StatusList(&git.StatusOptions{
 		Flags: git.StatusOptIncludeUntracked,
 	})
-	die(err)
+	if err != nil {
+		// bare repository
+		return
+	}
 	count, err := status.EntryCount()
 	die(err)
 	if count != 0 {
