@@ -72,7 +72,10 @@ func getPackages() {
 
 func queryPacaur() {
 	// update pacman databases
-	_ = exec.Command("pacman", "-Syy").Run()
+	cmd := exec.Command("pacman", "-Syy")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	_ = cmd.Run()
 
 	// count packages with available updates
 	cmd := exec.Command("pacaur", "-Qu")
