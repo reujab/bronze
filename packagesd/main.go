@@ -78,7 +78,11 @@ func queryPacaur() {
 	_ = cmd.Run()
 
 	// count packages with available updates
-	cmd := exec.Command("pacaur", "-Qu")
+	cmd = exec.Command("pacaur", "-Qu")
+	// FIXME: suddenly, pacaur requires the editor variable to be set
+	// remove when bug is fixed
+	cmd.Env = []string{"EDITOR=top"}
+	cmd.Stderr = os.Stderr
 	stdout, err := cmd.StdoutPipe()
 	check(err)
 	check(cmd.Start())
