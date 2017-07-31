@@ -40,6 +40,7 @@ func init() {
 		initIcon("failed", "\ue009")     // Pomicons; exclamation
 		initIcon("job", "\ue615")        // Seti UI
 		initIcon("package", "\uf187")    // Font Awesome; archive
+		initIcon("rss", "\uf09e")        // Font Awesome; rss
 		initIcon("home", "\uf015")       // Font Awesome; home
 		initIcon("github", "\uf09b")     // Font Awesome; github
 		initIcon("gitlab", "\uf296")     // Font Awesome; gitlab
@@ -68,7 +69,8 @@ func init() {
 		initIcon("failed", "\u2757")       // Emoji; exclamation mark
 		initIcon("job", "\u2699")          // Emoji; gear
 		initIcon("package", "\U0001f4e6")  // Emoji; package
-		initIcon("home", "\U0001f3e0")     // Emoji; house
+		initIcon("rss", "")
+		initIcon("home", "\U0001f3e0") // Emoji; house
 		initIcon("github", "")
 		initIcon("gitlab", "")
 		initIcon("bitbucket", "")
@@ -95,6 +97,7 @@ func init() {
 		initIcon("failed", "!")
 		initIcon("job", "&")
 		initIcon("package", "")
+		initIcon("rss", "")
 		initIcon("home", "~")
 		initIcon("github", "")
 		initIcon("gitlab", "")
