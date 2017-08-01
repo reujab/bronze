@@ -20,11 +20,13 @@ Install the bronze binary by compiling it from source or download a pre-compiled
 Now that you have bronze installed, you need to configure it. To have your prompt look like the one in the screenshot above, add this to your `~/.bashrc`/`~/.zshrc`:
 ```sh
 BRONZE=(status:black:white dir:blue:black git:green:black cmdtime:magenta:black)
+export BRONZE_SHELL=$SHELL # bash, zsh, or fish
 ```
 
 Or add the following to your `~/.config/fish/config.fish`:
 ```fish
 set BRONZE status:black:white dir:blue:black git:green:black cmdtime:magenta:black
+set -x BRONZE_SHELL fish
 ```
 
 Now that bronze is configured, you need to evaluate its bootstrap code.
