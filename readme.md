@@ -43,3 +43,60 @@ eval (bronze init)
 
 ## Documentation
 Documentation is available on [the wiki](https://github.com/reujab/bronze/wiki).
+
+## Project structure
+* [`packagesd/`](packagesd)
+	* `main.go`
+		* source code for the [`packages`](https://github.com/reujab/bronze/wiki/Packages) module daemon
+	* `packagesd.service`
+		* a [systemd service file](https://www.freedesktop.org/software/systemd/man/systemd.service.html)
+		* can be placed in `/usr/lib/systemd/system/`
+		* can be enabled with `systemctl enable packagesd`
+		* can be started with `systemctl start packagesd`
+* [`types/`](types)
+	* `main.go`
+		* exports types that are useful when create a [custom segment](https://github.com/reujab/bronze/wiki/Plugin)
+* `bindata.go`
+	* a file automatically generated with `go generate`
+	* contains the shell script files that are printed when running [`bronze init`](https://github.com/reujab/bronze/wiki#init)
+* `cmdtime.go`
+	* source code for the [`cmdtime`](https://github.com/reujab/bronze/wiki/Command-Time) module
+* `dir.go`
+	* source code for the [`dir`](https://github.com/reujab/bronze/wiki/Directory) module
+* `env.go`
+	* source code for the [`env`](https://github.com/reujab/bronze/wiki/Environment-Variable) module
+* `git.go`
+	* source code for the [`git`](https://github.com/reujab/bronze/wiki/Git) module
+* `icons.go`
+	* initializes every icon based on [`BRONZE_ICONS`](https://github.com/reujab/bronze/wiki#bronze_icons) and other environment variables
+* `init.bash`
+	* bootstraps prompt for Bash
+* `init.fish`
+	* bootstraps prompt for fish
+* `init.go`
+	* source code for the [`init`](https://github.com/reujab/bronze/wiki#init) subcommand
+* `init.zsh`
+	* bootstraps prompt for Zsh
+* `main.go`
+	* parses command line arguments
+* `modules.go`
+	* contains logic that determines which module function to call
+* `os.go`
+	* source code for the [`os`](https://github.com/reujab/bronze/wiki/OS) module
+* `packages.go`
+	* source code for the [`packages`](https://github.com/reujab/bronze/wiki/Packages) module
+* `plugin.go`
+	* source code for the [`plugin`](https://github.com/reujab/bronze/wiki/Plugin) module
+	* invokes code from dynamic libraries (`.so` files)
+* `print.go`
+	* source code for the [`print`](https://github.com/reujab/bronze/wiki#print) subcommand
+* `rss.go`
+	* source code for the [`rss`](https://github.com/reujab/bronze/wiki/RSS) module
+* `sh.go`
+	* contains shell-specific code
+* `status.go`
+	* source code for the [`status`](https://github.com/reujab/bronze/wiki/Status) module
+* `time.go`
+	* source code for the [`time`](https://github.com/reujab/bronze/wiki/Time) module
+* `user.go`
+	* source code for the [`user`](https://github.com/reujab/bronze/wiki/User) module
