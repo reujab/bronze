@@ -1,5 +1,6 @@
 package main
 
+//go:generate go get github.com/jteeuwen/go-bindata/go-bindata
 //go:generate go-bindata -nocompress init.bash init.zsh init.fish
 
 import (
