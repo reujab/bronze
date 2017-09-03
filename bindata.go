@@ -75,7 +75,7 @@ preexec() {
 }
 
 precmd() {
-	PROMPT="$(env status=$? jobs=$#jobstates cmdtime=$(($(date +%s%3N)-$BRONZE_START))ms bronze print "${BRONZE[@]}") "
+	PROMPT="$(env status=$? jobs=$(jobs | wc -l) cmdtime=$(($(date +%s%3N)-$BRONZE_START))ms bronze print "${BRONZE[@]}") "
 }
 `)
 
@@ -89,7 +89,7 @@ func initZsh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "init.zsh", size: 225, mode: os.FileMode(420), modTime: time.Unix(1499919920, 0)}
+	info := bindataFileInfo{name: "init.zsh", size: 229, mode: os.FileMode(420), modTime: time.Unix(1504447500, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }

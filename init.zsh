@@ -6,5 +6,5 @@ preexec() {
 }
 
 precmd() {
-	PROMPT="$(env status=$? jobs=$#jobstates cmdtime=$(($(date +%s%3N)-$BRONZE_START))ms bronze print "${BRONZE[@]}") "
+	PROMPT="$(env status=$? jobs=$(jobs | wc -l) cmdtime=$(($(date +%s%3N)-$BRONZE_START))ms bronze print "${BRONZE[@]}") "
 }
