@@ -53,12 +53,13 @@ Documentation is available on [the wiki](https://github.com/reujab/bronze/wiki).
 		* can be placed in `/usr/lib/systemd/system/`
 		* can be enabled with `systemctl enable packagesd`
 		* can be started with `systemctl start packagesd`
+* [`static/`](static)
+	* ab0x.go
+		* a file automatically generated with `go generate`
+		* contains the shell script files that are printed when running [`bronze init`](https://github.com/reujab/bronze/wiki#init)
 * [`types/`](types)
 	* `main.go`
 		* exports types that are useful when create a [custom segment](https://github.com/reujab/bronze/wiki/Plugin)
-* `bindata.go`
-	* a file automatically generated with `go generate`
-	* contains the shell script files that are printed when running [`bronze init`](https://github.com/reujab/bronze/wiki#init)
 * `cmdtime.go`
 	* source code for the [`cmdtime`](https://github.com/reujab/bronze/wiki/Command-Time) module
 * `dir.go`

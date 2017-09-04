@@ -1,0 +1,10 @@
+pkg: static
+dest: static
+fmt: true
+compression:
+  compress: false
+custom:
+  - files:
+    - init.bash
+    - init.zsh
+    - init.fish
