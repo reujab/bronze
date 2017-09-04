@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	. "github.com/reujab/bronze/types"
-	"github.com/reujab/git2go-v26"
+	"gopkg.in/libgit2/git2go.v26"
 )
 
 // the git segment provides useful information about a git repository such as the domain of the "origin" remote (with an icon), the current branch, and whether the HEAD is dirty
