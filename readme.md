@@ -54,7 +54,7 @@ Documentation is available on [the wiki](https://github.com/reujab/bronze/wiki).
 		* can be enabled with `systemctl enable packagesd`
 		* can be started with `systemctl start packagesd`
 * [`static/`](static)
-	* ab0x.go
+	* `ab0x.go`
 		* a file automatically generated with `go generate`
 		* contains the shell script files that are printed when running [`bronze init`](https://github.com/reujab/bronze/wiki#init)
 * [`types/`](types)
