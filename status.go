@@ -27,7 +27,8 @@ func statusSegment(segment *Segment) {
 		segment.Value += icons["failed"]
 	}
 
-	jobs, err := strconv.Atoi(os.Getenv("jobs"))
+	// trim spaces from input because bsd wc will prefix the number with spaces
+	jobs, err := strconv.Atoi(strings.TrimLeft(os.Getenv("jobs"), " "))
 	die(err)
 	segment.Value += strings.Repeat(icons["job"], jobs)
 }
