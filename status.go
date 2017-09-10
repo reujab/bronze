@@ -21,7 +21,7 @@ func statusSegment(segment *Segment) {
 		segment.Value += icons["readonly"]
 	}
 
-	status, err := strconv.Atoi(os.Getenv("status"))
+	status, err := strconv.Atoi(os.Getenv("code"))
 	die(err)
 	if status != 0 {
 		segment.Value += icons["failed"]
