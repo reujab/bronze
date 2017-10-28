@@ -16,6 +16,12 @@ To be able to use the custom icons (which are enabled by default), you must patc
 ### Installation
 Install the bronze binary by compiling it from source or download a pre-compiled binary on the [releases page](https://github.com/reujab/bronze/releases) and add it to your `PATH`.
 
+#### macOS
+On macOS, you will have to do a bit more:
+* install [Homebrew](https://brew.sh/)
+* run `brew install coreutils`
+* add `alias date="gdate"` to your shell rc
+
 ### Configuration
 Now that you have bronze installed, you need to configure it. To have your prompt look like the one in the screenshot above, add this to your `~/.bashrc`/`~/.zshrc`:
 ```sh
