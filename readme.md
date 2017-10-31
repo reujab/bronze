@@ -14,7 +14,14 @@ Since bronze is not written in shell script, it should theoretically be compatib
 To be able to use the custom icons (which are enabled by default), you must patch your font or install a pre-patched font from [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts).
 
 ### Installation
-Install the bronze binary by compiling it from source or download a pre-compiled binary on the [releases page](https://github.com/reujab/bronze/releases) and add it to your `PATH`.
+#### From source
+* install and setup [Go](https://golang.org/)
+* install [libgit2](https://libgit2.github.com/) development packages
+* run `go get github.com/reujab/bronze`
+
+#### From pre-compiled binary
+* download a binary on the [releases page](https://github.com/reujab/bronze/releases)
+* add binary to `PATH` environment variable
 
 #### macOS
 On macOS, you will have to do a bit more:
