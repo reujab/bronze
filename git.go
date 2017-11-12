@@ -23,9 +23,8 @@ func gitSegment(segment *Segment) {
 	remote, err := repo.Remotes.Lookup("origin")
 	if err == nil {
 		uri, err := url.Parse(remote.Url())
-		die(err)
-		// strip the tld off the hostname
-		if len(uri.Hostname()) > 4 {
+		if err == nil && len(uri.Hostname()) > 4 {
+			// strip the tld off the hostname
 			domainName = uri.Hostname()[:len(uri.Hostname())-4]
 		}
 		remote.Free()
