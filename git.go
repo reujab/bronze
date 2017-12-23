@@ -11,19 +11,18 @@ import (
 	"gopkg.in/libgit2/git2go.v26"
 )
 
-// Reformat scp-like url (e. g. ssh)
+// reformat scp-like url (e. g. ssh)
 // https://github.com/motemen/ghq/blob/master/url.go
-func fixUrl(url string) (string) {
-	var hasSchemePattern = regexp.MustCompile("^[^:]+://")
-	var scpLikeUrlPattern = regexp.MustCompile("^([^@]+@)?([^:]+):/?(.+)$")
+func fixUrl(url string) string {
+	hasSchemePattern := regexp.MustCompile("^[^:]+://")
+	scpLikeUrlPattern := regexp.MustCompile("^([^@]+@)?([^:]+):/?(.+)$")
 
 	if !hasSchemePattern.MatchString(url) && scpLikeUrlPattern.MatchString(url) {
 		matched := scpLikeUrlPattern.FindStringSubmatch(url)
 		user := matched[1]
 		host := matched[2]
 		path := matched[3]
-
-		url = fmt.Sprintf("ssh://%s%s/%s", user, host, path)
+		return fmt.Sprintf("ssh://%s%s/%s", user, host, path)
 	}
 
 	return url
