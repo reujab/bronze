@@ -1,13 +1,33 @@
 package main
 
 import (
+	"fmt"
 	"net/url"
 	"os"
+	"regexp"
 	"strings"
 
 	. "github.com/reujab/bronze/types"
 	"gopkg.in/libgit2/git2go.v26"
 )
+
+// Reformat scp-like url (e. g. ssh)
+// https://github.com/motemen/ghq/blob/master/url.go
+func fixUrl(url string) (string) {
+	var hasSchemePattern = regexp.MustCompile("^[^:]+://")
+	var scpLikeUrlPattern = regexp.MustCompile("^([^@]+@)?([^:]+):/?(.+)$")
+
+	if !hasSchemePattern.MatchString(url) && scpLikeUrlPattern.MatchString(url) {
+		matched := scpLikeUrlPattern.FindStringSubmatch(url)
+		user := matched[1]
+		host := matched[2]
+		path := matched[3]
+
+		url = fmt.Sprintf("ssh://%s%s/%s", user, host, path)
+	}
+
+	return url
+}
 
 // the git segment provides useful information about a git repository such as the domain of the "origin" remote (with an icon), the current branch, and whether the HEAD is dirty
 func gitSegment(segment *Segment) {
@@ -22,7 +42,8 @@ func gitSegment(segment *Segment) {
 	var domainName string
 	remote, err := repo.Remotes.Lookup("origin")
 	if err == nil {
-		uri, err := url.Parse(remote.Url())
+		remoteUrl := fixUrl(remote.Url())
+		uri, err := url.Parse(remoteUrl)
 		if err == nil && len(uri.Hostname()) > 4 {
 			// strip the tld off the hostname
 			domainName = uri.Hostname()[:len(uri.Hostname())-4]
