@@ -114,3 +114,6 @@ Documentation is available on [the wiki](https://github.com/reujab/bronze/wiki).
 	* source code for the [`time`](https://github.com/reujab/bronze/wiki/Time) module
 * `user.go`
 	* source code for the [`user`](https://github.com/reujab/bronze/wiki/User) module
+
+## Similar projects
+[powerline-go](https://github.com/justjanne/powerline-go)
