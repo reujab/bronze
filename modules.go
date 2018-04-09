@@ -28,6 +28,8 @@ func handleModule(module string, segment *Segment, args []string) {
 		envSegment(segment, args)
 	case "plugin":
 		pluginSegment(segment, args)
+	case "virtualenv":
+		virtualEnvSegment(segment)
 	default:
 		dief("invalid module: %q", module)
 	}
