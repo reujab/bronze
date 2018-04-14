@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	. "github.com/reujab/bronze/types"
-	"gopkg.in/libgit2/git2go.v26"
+	"gopkg.in/libgit2/git2go.v27"
 )
 
 // reformat scp-like url (e. g. ssh)
