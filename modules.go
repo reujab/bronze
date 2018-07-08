@@ -26,10 +26,11 @@ func handleModule(module string, segment *Segment, args []string) {
 		timeSegment(segment)
 	case "env":
 		envSegment(segment, args)
+	case "virtualenv":
+		virtualenvSegment(segment)
+
 	case "plugin":
 		pluginSegment(segment, args)
-	case "virtualenv":
-		virtualEnvSegment(segment)
 	default:
 		dief("invalid module: %q", module)
 	}
