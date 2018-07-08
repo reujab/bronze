@@ -10,9 +10,8 @@ import (
 )
 
 var cmdPrint = cli.Command{
-	Name:  "print",
-	Usage: "Prints the prompt with the specified syntax",
-	// TODO: improve description
+	Name:        "print",
+	Usage:       "Prints the prompt with the specified modules",
 	Description: "Example: bronze print dir:blue:black",
 	Action: func(ctx *cli.Context) error {
 		if len(ctx.Args()) == 0 {
