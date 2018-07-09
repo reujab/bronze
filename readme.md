@@ -2,6 +2,9 @@
 A cross-shell customizable powerline-like prompt heavily inspired by [Agnoster](https://github.com/agnoster/agnoster-zsh-theme).<br/>
 ![](./sleep.png)
 
+## Rust port
+There is a new, compatible, 50% faster port of this called [silver](https://github.com/reujab/silver) written in Rust. Silver is compatible with the same configuration as bronze once you rename variables from BRONZE to SILVER (`$BRONZE` -> `$SILVER`, `$BRONZE_SHELL` -> `$SILVER_SHELL`, ...). The only main difference is that silver does not support the [packages](https://github.com/reujab/bronze/wiki/Packages) or [plugin](https://github.com/reujab/bronze/wiki/Plugin) modules.
+
 ## How does it work?
 Unlike pretty much every other shell prompt, bronze is not written in shell script, but entirely in Go, so all prompt segments are loaded asynchronously for a speed boost.
 
