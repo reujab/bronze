@@ -40,7 +40,6 @@ func init() {
 		initIcon("failed", "\ue009")     // Pomicons; exclamation
 		initIcon("job", "\ue615")        // Seti UI
 		initIcon("package", "\uf187")    // Font Awesome; archive
-		initIcon("rss", "\uf09e")        // Font Awesome; rss
 		initIcon("home", "\uf015")       // Font Awesome; home
 		initIcon("github", "\uf09b")     // Font Awesome; github
 		initIcon("gitlab", "\uf296")     // Font Awesome; gitlab

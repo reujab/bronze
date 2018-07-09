@@ -104,8 +104,6 @@ Documentation is available on [the wiki](https://github.com/reujab/bronze/wiki).
 	* invokes code from dynamic libraries (`.so` files)
 * `print.go`
 	* source code for the [`print`](https://github.com/reujab/bronze/wiki#print) subcommand
-* `rss.go`
-	* source code for the [`rss`](https://github.com/reujab/bronze/wiki/RSS) module
 * `sh.go`
 	* contains shell-specific code
 * `status.go`

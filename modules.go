@@ -12,8 +12,6 @@ func handleModule(module string, segment *Segment, args []string) {
 		statusSegment(segment)
 	case "packages":
 		packagesSegment(segment)
-	case "rss":
-		rssSegment(segment)
 	case "user":
 		userSegment(segment)
 	case "dir":
