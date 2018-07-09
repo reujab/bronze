@@ -25,15 +25,15 @@ func init() {
 	switch iconMode {
 	case "nerd":
 		initIcon("apple", "\uf179")      // Font Awesome; apple
-		initIcon("arch", "\uf300")       // Font Linux
-		initIcon("centOS", "\uf301")     // Font Linux
-		initIcon("debian", "\uf302")     // Font Linux
-		initIcon("fedora", "\uf303")     // Font Linux
-		initIcon("mint", "\uf304")       // Font Linux
-		initIcon("SUSE", "\uf308")       // Font Linux
-		initIcon("ubuntu", "\uf30c")     // Font Linux
-		initIcon("elementary", "\uf311") // Font Linux
-		initIcon("linux", "\uf17c")      // Font Awesome; linux
+		initIcon("arch", "\uf303")       // Font Linux
+		initIcon("centOS", "\uf304")     // Font Linux
+		initIcon("debian", "\uf306")     // Font Linux
+		initIcon("fedora", "\uf30a")     // Font Linux
+		initIcon("mint", "\uf30e")       // Font Linux
+		initIcon("SUSE", "\uf314")       // Font Linux
+		initIcon("ubuntu", "\uf31b")     // Font Linux
+		initIcon("elementary", "\uf309") // Font Linux
+		initIcon("linux", "\uf31a")      // Font Linux
 		initIcon("bsd", "\uf30e")        // Font Linux
 		initIcon("root", "\ue00a")       // Pomicons; lightning
 		initIcon("readonly", "\uf023")   // Font Awesome; lock
