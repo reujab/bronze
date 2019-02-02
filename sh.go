@@ -36,6 +36,10 @@ func escapeBackground(color string) string {
 			return "%{\x1b[48;2;" + escapeHex(color) + "m%}"
 		}
 
+		if color == "none" {
+			return "%k"
+		}
+
 		// 16 and 256 colors
 		return "%K{" + color + "}"
 	case "bash":
